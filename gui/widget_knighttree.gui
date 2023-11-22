@@ -1,0 +1,752 @@
+﻿template Background_line_tot
+{
+	texture = "gfx/lines/line_diffuse_04.dds"
+	spriteType = Corneredtiled
+	spriteborder = { 80 20 }
+	color = { 0.86 0.87 0.87 1 }
+	texture_density = 2
+}
+template Window_Background_Subwindow_te
+{
+	background = {
+		name = "background"
+		texture = "gfx/interface/tot_empty.dds"
+		spriteType = Corneredtiled
+		spriteborder = { 20 20 }
+		color = { 0.06 0.07 0.077 1 }
+		texture_density = 2
+		alpha = 0.98
+	}
+
+	background = {
+		name = "tooltip_frame"
+		texture = "gfx/interface/tooltips/tooltip_frame_te.dds"
+		spriteType = Corneredtiled
+		spriteborder = { 20 20 }
+
+		color = { 0.1 0.1 0.1 1 }
+
+	}
+}
+types DynastyTreeView
+{
+	type dynasty_tree_top_teacher_custom = container {
+		name = "knight_tree_top_item"
+		ignoreinvisible = yes
+
+
+		flowcontainer = {
+			name = "knight_tree_top_item_line_area"
+			direction = vertical
+			ignoreinvisible = yes
+			#margin = { 400 80 } # Add me
+			position = { 400 100 } # Add me instead
+
+			container = {
+				parentanchor = hcenter
+
+				widget = {
+					name = "top_pin"
+					parentanchor = hcenter
+					size = { 0 0 }
+					position = { 0 -10 }
+					# always returns true. Function call allows to connect the widget with the data in code
+					#visible = "[Scope.SetupTopWidget( PdxGuiWidget.Self )]"
+				}
+
+				text_single = {
+					parentanchor = hcenter
+					autoresize = yes
+					text = "[Scope.GetCharacter.GetBirthDate]"
+				}
+
+				flowcontainer = {
+					name = "character_container"
+					direction = vertical
+					ignoreinvisible = yes
+
+					container = {
+						datacontext = "[Scope.GetCharacter]"
+						ignoreinvisible = yes
+						# always returns true. Function call allows to connect the widget with the data in code
+						#visible = "[Scope.SetupCharacterWidget(PdxGuiWidget.Self)]"
+
+
+						flowcontainer = {
+							name = "tree_header"
+							datacontext = "[Character.GetHouse]"
+							datacontext = "[Character.GetDynasty]"
+							visible = "[ObjectsEqual(Character.MakeScope.Var('my_knight_tree_curr_head').Var('my_knight_tree_founder').Char, Character.Self)]"
+							ignoreinvisible = yes
+							direction = vertical
+							minimumsize = { 330 255 }
+							position = { 0 -250 }
+
+							background = {
+								using = Background_Area_With_Header_Dark
+							}
+
+							background = {
+								texture = "gfx/interface/component_masks/mask_rough_edges.dds"
+								spriteType = CorneredTiled
+								spriteborder = { 5 5 }
+								alpha = 0.6
+
+								using = Color_Orange
+								mirror = vertical
+
+								modify_texture = {
+									texture = "gfx/interface/component_masks/patterns/mask_pattern_05.dds"
+									spriteType = Corneredtiled
+									blend_mode = alphamultiply
+								}
+
+								modify_texture = {
+									texture = "gfx/interface/component_overlay/overlay_thin_frame.dds"
+									blend_mode = alphamultiply
+								}
+							}
+
+							text_single = {
+								parentanchor = hcenter
+								autoresize = yes
+								text = "DYNASTY_VIEW_INFO_TITLE"
+							}
+
+							icon = {
+								parentanchor = hcenter
+								texture = "gfx/interface/component_tiles/tile_divider_01.dds"
+							}
+
+							widget = {
+								size = { 165 175 }
+								parentanchor = hcenter
+
+								coa_house_huge = {
+									parentanchor = bottom|hcenter
+									datacontext = [Dynasty]
+								}
+							}
+
+							text_single = {
+								name = "dynasty_prestige"
+								parentanchor = hcenter
+								autoresize = yes
+								text = "DYNASTY_VIEW_PRESTIGE"
+							}
+
+							text_single = {
+								name = "house_motto"
+								parentanchor = hcenter
+								autoresize = yes
+								text = "HOUSE_VIEW_MOTTO"
+							}
+
+							icon = {
+								parentanchor = hcenter
+								texture = "gfx/interface/component_tiles/tile_divider_01.dds"
+							}
+						}
+
+						portrait_body = {
+							datacontext = [Dynasty]
+							visible = "[ObjectsEqual(Character.MakeScope.Var('my_knight_tree_curr_head').Var('my_knight_tree_founder').Char, Character.Self)]"
+							parentanchor = hcenter
+						}
+
+						portrait_shoulders = {
+							visible = "[Not(ObjectsEqual(Character.MakeScope.Var('my_knight_tree_curr_head').Var('my_knight_tree_founder').Char, Character.Self))]"
+							position = { 0 25 }
+
+							flowcontainer = {
+								direction = vertical
+								ignoreinvisible = yes
+								parentanchor = right
+
+								button_me = {
+									size = { 25 25 }
+									visible = "[Character.IsLocalPlayer]"
+									alwaystransparent = yes
+									tooltip = "CV_TT_YOU"
+								}
+
+								icon = {
+									size = { 25 25 }
+									framesize = { 40 40 }
+									frame = 2
+									visible = "[Character.IsBastard]"
+									texture = "gfx/interface/icons/portraits/relation.dds"
+									tooltip = "CV_TT_BASTARD"
+								}
+							}
+
+							blockoverride "opinion_box" {}
+							blockoverride "status_icons" {}
+						}
+					}
+
+					text_single = {
+						name = "title"
+						size = { 140 30 }
+						parentanchor = hcenter
+
+						# Must be autoresize no, since the text scales to nearest whole size increment, and therefore would push around other elements in the flowcontainer parent
+						autoresize = no
+						elide = right
+
+						align = center
+						#text = "[Scope.GetCharacter.GetShortUINameNotMeNoTooltip]"
+						text = "[Scope.GetCharacter.GetFirstNameNoTooltip] [Select_CString(Scope.GetCharacter.GetHouse.IsValid, Scope.GetCharacter.GetHouse.GetNameNoTooltip, '' )]"
+						default_format = "#high"
+						fontsize = 20
+						fontsize_min = 10
+					}
+					text_single = {
+						parentanchor = hcenter
+						autoresize = yes
+						raw_text = "[Scope.GetCharacter.GetBirthDate.GetYear]-[Select_CString(Scope.GetCharacter.IsAlive, '?', Localize('death_date_kt') )]"
+					}
+
+					#coa_dynasty_small = {
+					#	parentanchor = hcenter
+					#	datacontext = "[DynastyTreeItem.GetCharacter.GetDynasty]"
+					#	visible = "[DynastyTreeItem.IsFromOtherDynasty]"
+					#
+					#	blockoverride "OnClickDefault" {
+					#		onclick = "[OpenDynastyTreeViewFromCharacter(DynastyTreeItem.GetCharacter.GetID)]"
+					#	}
+					#}
+
+					#coa_house_small = {
+					#	parentanchor = hcenter
+					#	visible = "[DynastyTreeItem.IsCadetBranchFounder]"
+					#	datacontext = "[DynastyTreeItem.GetCharacter.GetHouse]"
+					#}
+
+					button = {
+						name = "show_hide"
+						visible = "[GetScriptedGui('knight_tree_children').IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End)]"
+						size = { 25 25 }
+						framesize = { 60 60 }
+						texture = "gfx/interface/icons/symbols/plus_minus.dds"
+						parentanchor = hcenter
+						tooltip = "[SelectLocalization(GetVariableSystem.Exists('hello_knight_tree_children'), 'DYNASTY_VIEW_CHILDREN_HIDE', 'DYNASTY_VIEW_CHILDREN_SHOW')]"
+						frame = "[GetVariableSystem.Exists('hello_knight_tree_children')]"
+						onclick = "[GetVariableSystem.Toggle('hello_knight_tree_children')]"
+					}
+				}
+			}
+
+			flowcontainer = {
+				direction = vertical
+				ignoreinvisible = yes
+				datacontext = "[Scope.GetCharacter]"
+				
+				visible = "[And(GetVariableSystem.Exists('hello_knight_tree_children'),GetScriptedGui('knight_tree_children').IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End))]"
+				widget = {
+					parentanchor = hcenter
+					visible = "[GetVariableSystem.Exists('hello_knight_tree_children')]"
+
+					line = {
+						resizeparent = yes
+						using = Line_DynastyTree
+						from = { 0 0 }
+						to = { 0 50 }
+					}
+				}
+				widget = {
+					parentanchor = hcenter
+					#margin = { 0 100 }
+					size = { 90% 10 }
+					background = {
+						position = { 0 50 }
+						texture = "gfx/lines/line_diffuse_07.dds"
+						color = { 0.86 0.87 0.87 1 }
+						#spriteborder = { 1 1 }
+						
+					}#using = Line_DynastyTree
+				}
+
+				container = { # Student recursion
+					parentanchor = hcenter
+					datacontext = "[Scope.GetCharacter]"
+				
+					dynamicgridbox = {
+						#datamodel = "[DynastyTreeItem.GetChildren]"
+						datamodel = "[GetPlayer.MakeScope.Var('zero_teacher_tree').GetList('students')]"
+						flipdirection = yes
+					
+						item = {
+							recursive = yes
+							dynasty_tree_item_custom = {}
+						}
+					}
+				}
+			}
+		}
+
+		#widget = {
+		#	visible = "[GetVariableSystem.Exists('hello_knight_tree_children')]"
+		#	#parentanchor = hcenter
+		#
+		#	line = {
+		#		resizeparent = yes
+		#		using = Line_DynastyTree
+		#		visible = "[GetVariableSystem.Exists('hello_knight_tree_children')]"
+		#		from = { 70 300 }
+		#		to = { 210 300 }
+		#	}
+		#}
+	}
+	type dynasty_tree_item_custom = container {
+		name = "knight_tree_item"
+		ignoreinvisible = yes
+
+
+		flowcontainer = {
+			name = "knight_tree_item_line_area"
+			direction = vertical
+			ignoreinvisible = yes
+			margin = { 0 10 }
+
+			container = {
+				parentanchor = hcenter
+
+				widget = {
+					name = "top_pin"
+					parentanchor = hcenter
+					size = { 0 0 }
+					position = { 0 -10 }
+					# always returns true. Function call allows to connect the widget with the data in code
+					#visible = "[Scope.SetupTopWidget( PdxGuiWidget.Self )]"
+				}
+
+				line = {
+					#visible = "[DynastyTreeItem.HasParent]"
+					using = Line_DynastyTree
+					parentanchor = hcenter
+					from = { 0 -8 }
+					to = { 0 12 }
+				}
+
+				flowcontainer = {
+					name = "character_container"
+					direction = vertical
+					ignoreinvisible = yes
+
+					container = {
+						datacontext = "[Scope.GetCharacter]"
+						ignoreinvisible = yes
+						# always returns true. Function call allows to connect the widget with the data in code
+						#visible = "[Scope.SetupCharacterWidget(PdxGuiWidget.Self)]"
+
+						flowcontainer = {
+							name = "tree_header"
+							datacontext = "[Character.GetHouse]"
+							datacontext = "[Character.GetDynasty]"
+							visible = "[ObjectsEqual(Character.MakeScope.Var('my_knight_tree_curr_head').Var('my_knight_tree_founder').Char, Character.Self)]"
+							ignoreinvisible = yes
+							direction = vertical
+							minimumsize = { 330 255 }
+							position = { 0 -250 }
+
+							background = {
+								using = Background_Area_With_Header_Dark
+							}
+
+							background = {
+								texture = "gfx/interface/component_masks/mask_rough_edges.dds"
+								spriteType = CorneredTiled
+								spriteborder = { 5 5 }
+								alpha = 0.6
+
+								using = Color_Orange
+								mirror = vertical
+
+								modify_texture = {
+									texture = "gfx/interface/component_masks/patterns/mask_pattern_05.dds"
+									spriteType = Corneredtiled
+									blend_mode = alphamultiply
+								}
+
+								modify_texture = {
+									texture = "gfx/interface/component_overlay/overlay_thin_frame.dds"
+									blend_mode = alphamultiply
+								}
+							}
+
+							text_single = {
+								parentanchor = hcenter
+								autoresize = yes
+								text = "DYNASTY_VIEW_INFO_TITLE"
+							}
+
+							icon = {
+								parentanchor = hcenter
+								texture = "gfx/interface/component_tiles/tile_divider_01.dds"
+							}
+
+							widget = {
+								size = { 165 175 }
+								parentanchor = hcenter
+
+								coa_house_huge = {
+									parentanchor = bottom|hcenter
+									datacontext = [Dynasty]
+								}
+							}
+
+							text_single = {
+								name = "dynasty_prestige"
+								parentanchor = hcenter
+								autoresize = yes
+								text = "DYNASTY_VIEW_PRESTIGE"
+							}
+
+							text_single = {
+								name = "house_motto"
+								parentanchor = hcenter
+								autoresize = yes
+								text = "HOUSE_VIEW_MOTTO"
+							}
+
+							icon = {
+								parentanchor = hcenter
+								texture = "gfx/interface/component_tiles/tile_divider_01.dds"
+							}
+						}
+
+						portrait_body = {
+							datacontext = [Dynasty]
+							visible = "[ObjectsEqual(Character.MakeScope.Var('my_knight_tree_curr_head').Var('my_knight_tree_founder').Char, Character.Self)]"
+							parentanchor = hcenter
+						}
+
+						portrait_shoulders = {
+							visible = "[Not(ObjectsEqual(Character.MakeScope.Var('my_knight_tree_curr_head').Var('my_knight_tree_founder').Char, Character.Self))]"
+							position = { 0 25 }
+
+							flowcontainer = {
+								direction = vertical
+								ignoreinvisible = yes
+								parentanchor = right
+
+								button_me = {
+									size = { 25 25 }
+									visible = "[Character.IsLocalPlayer]"
+									alwaystransparent = yes
+									tooltip = "CV_TT_YOU"
+								}
+
+								icon = {
+									size = { 25 25 }
+									framesize = { 40 40 }
+									frame = 4
+									visible = "[Character.IsBastard]"
+									texture = "gfx/interface/icons/portraits/relation.dds"
+									tooltip = "CV_TT_BASTARD"
+								}
+							}
+
+							blockoverride "opinion_box" {}
+							blockoverride "status_icons" {}
+						}
+
+						#button = {
+						#	name = "show_hide_parent"
+						#	parentanchor = hcenter
+						#	position = { 7 12 }
+						#	#visible = "[Not(ObjectsEqual(Character.MakeScope.Var('my_knight_tree_curr_head').Var('my_knight_tree_founder').Char, Character.Self))]" не глава древа
+						#	size = { 25 25 }
+						#	framesize = { 60 60 }
+						#	texture = "gfx/interface/icons/symbols/plus_minus.dds"
+						#	frame = "[GetVariableSystem.Exists('hello_knight_tree_parent')]"
+						#	tooltip = "[SelectLocalization( GetVariableSystem.Exists('hello_knight_tree_parent'), 'DYNASTY_VIEW_EXPAND_ROOT', 'DYNASTY_VIEW_SET_ROOT' )]"
+						#	onclick = "[GetVariableSystem.Toggle('hello_knight_tree_parent')]"
+						#}
+					}
+
+					text_single = {
+						name = "title"
+						size = { 140 30 }
+						parentanchor = hcenter
+
+						# Must be autoresize no, since the text scales to nearest whole size increment, and therefore would push around other elements in the flowcontainer parent
+						autoresize = no
+						elide = right
+
+						align = center
+						#text = "[Scope.GetCharacter.GetShortUINameNotMeNoTooltip]"
+						text = "[Scope.GetCharacter.GetFirstNameNoTooltip] [Select_CString(Scope.GetCharacter.GetHouse.IsValid, Scope.GetCharacter.GetHouse.GetNameNoTooltip, '' )]"
+						default_format = "#high"
+						fontsize = 20
+						fontsize_min = 10
+					}
+					text_single = {
+						parentanchor = hcenter
+						autoresize = yes
+						raw_text = "[Scope.GetCharacter.GetBirthDate.GetYear]-[Select_CString(Scope.GetCharacter.IsAlive, '?', Localize('death_date_kt') )]"
+					}
+
+					#coa_dynasty_small = {
+					#	parentanchor = hcenter
+					#	datacontext = "[DynastyTreeItem.GetCharacter.GetDynasty]"
+					#	visible = "[DynastyTreeItem.IsFromOtherDynasty]"
+					#
+					#	blockoverride "OnClickDefault" {
+					#		onclick = "[OpenDynastyTreeViewFromCharacter(DynastyTreeItem.GetCharacter.GetID)]"
+					#	}
+					#}
+
+					#coa_house_small = {
+					#	parentanchor = hcenter
+					#	visible = "[DynastyTreeItem.IsCadetBranchFounder]"
+					#	datacontext = "[DynastyTreeItem.GetCharacter.GetHouse]"
+					#}
+
+					#button = {
+					#	name = "show_hide"
+					#	visible = "[GetScriptedGui('knight_tree_children_2').IsShown( GuiScope.SetRoot( Scope.GetCharacter.MakeScope ).AddScope('main_knight_story',GetPlayer.MakeScope.Var('opened_knight_tree').Story.MakeScope).End)]"
+					#	size = { 25 25 }
+					#	framesize = { 60 60 }
+					#	texture = "gfx/interface/icons/symbols/plus_minus.dds"
+					#	parentanchor = hcenter
+					#	tooltip = "[SelectLocalization(GetVariableSystem.Exists('hello_knight_tree_children'), 'DYNASTY_VIEW_CHILDREN_HIDE', 'DYNASTY_VIEW_CHILDREN_SHOW')]"
+					#	frame = "[GetVariableSystem.Exists('hello_knight_tree_children')]"
+					#	onclick = "[GetVariableSystem.Toggle('hello_knight_tree_children')]"
+					#}
+				}
+			}
+
+			flowcontainer = {
+				direction = vertical
+				ignoreinvisible = yes
+				margin = { 0 3 }
+				datacontext = "[Scope.GetCharacter]"
+				visible = "[GetScriptedGui('knight_tree_children_2').IsShown( GuiScope.SetRoot( Character.MakeScope ).AddScope('main_knight_story',GetPlayer.MakeScope.Var('opened_knight_tree').Story.MakeScope).End)]"
+				#background = {
+				#	texture = "gfx/lines/line_diffuse_04.dds"
+				#	color = { 0.86 0.87 0.87 1 }
+				#	spriteborder = { 1 1 }
+				#	
+				#}#using = Line_DynastyTree
+				widget = {
+					parentanchor = hcenter
+
+					line = {
+						resizeparent = yes
+						using = Line_DynastyTree
+						from = { 0 0 }
+						to = { 0 50 }
+					}
+				}
+				widget = {
+					parentanchor = hcenter
+					#margin = { 0 100 }
+					size = { 90% 10 }
+					background = {
+						position = { 0 50 }
+						texture = "gfx/lines/line_diffuse_07.dds"
+						color = { 0.86 0.87 0.87 1 }
+						#spriteborder = { 1 1 }
+						
+					}#using = Line_DynastyTree
+				}
+
+				container = { # Student recursion
+					parentanchor = hcenter
+					
+				
+					dynamicgridbox = {
+						datamodel = "[GetPlayer.MakeScope.Var('opened_knight_tree').GetList('prune')]"
+						item = {
+							dynamicgridbox = {
+								visible = "[ObjectsEqual(Scope.Var('this_teacher').Char,Character.Self)]"
+								datamodel = "[Scope.GetList('students')]"
+								flipdirection = yes
+							
+								item = {
+									recursive = yes
+									dynasty_tree_item_custom = {}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		#widget = {
+		#	visible = "[DynastyTreeItem.AreChildrenVisible]"
+		#
+		#	line = {
+		#		resizeparent = yes
+		#		using = Line_DynastyTree
+		#		visible = "[DynastyTreeItem.AreChildrenVisible]"
+		#		from = "[DynastyTreeItem.GetLineStartPoint]"
+		#		to = "[DynastyTreeItem.GetLineEndPoint]"
+		#	}
+		#}
+	}
+}
+window = { # Knight Tree Opened Window
+	name = "widget_knighttree"
+	parentanchor = top|hcenter
+	position = { 100 250 } # Window Position Add Me
+	size = { 1400 900 }
+	movable = yes
+	layer = middle
+	using = Window_Background_Subwindow_te
+	datacontext = "[GetPlayer]"
+	datacontext = "[GetVariableSystem]"
+	
+	visible = "[And(And(GetVariableSystem.Exists('hello_knight_tree'),IsInGame),GetPlayer.MakeScope.Var('opened_knight_tree').IsSet)]"
+
+	state = {
+		name = _show
+		alpha = 1
+	}
+
+	state = {
+		name = _hide
+		alpha = 0.98
+		
+	}
+	state = {
+		name = dismiss
+		next = _hide
+		alpha = 0.97
+		trigger_when = "[Not(GetVariableSystem.Exists( 'hello_knight_tree' ))]"
+	}
+	widget = {
+		size = { 1400 900 }
+		position = { 0 13 }
+		
+		layoutpolicy_horizontal = expanding
+		parentanchor = top|hcenter
+		widget = {
+			parentanchor = hcenter
+			size = { 1390 90 }
+			background = {
+				texture = "gfx/interface/knighttree.dds"
+				texture_density = 6
+				spriteType = CorneredTiled
+				#spriteborder = { 1 1 }
+				#alpha = 0.9
+				#using = Color_Orange
+				#mirror = vertical
+			}
+			position = { 0 -50 }
+		}
+		text_single = {
+			text = "knight_tree_main"
+			default_format = "#medium;color:{0.6,0.6,0.05,1}"
+			parentanchor = top|hcenter
+			maximumsize = { 400 -1 }
+			margin_top = 40
+			using = Font_Type_Flavor
+			using = Font_Size_Big
+		}
+		flowcontainer = {
+			alwaystransparent = no
+			direction = vertical
+			parentanchor = top|right
+			margin_top = 50
+			text_single = {
+				text = "knight_tree_members"
+				using = Font_Type_Flavor
+				parentanchor = right
+				margin_right = 70
+			}
+			text_single = {
+				text = "knight_tree_living"
+				using = Font_Type_Flavor
+				parentanchor = right
+				margin_right = 70
+			}
+		}
+		widget = {
+			size = { 200 100 }
+			parentanchor = top|left
+			position = { 0 35 }
+			vbox = {
+				text_single = {
+					raw_text = "#D SC Trees: [GetPlayer.MakeScope.Var('story_cycles_trees').GetValue|0]#!"
+					visible = "[InDebugMode]"
+				}
+				text_single = {
+					raw_text = "#D SC Teachers: [GetPlayer.MakeScope.Var('story_cycles_teachers').GetValue|0]#!"
+					visible = "[InDebugMode]"
+				}
+				text_single = {
+					raw_text = "#D Trees Destroyed: [GetGlobalVariable('sc_trees_destroyed').GetValue|0]#!"
+					visible = "[InDebugMode]"
+				}
+			}
+		}
+		
+		widget = {
+			size = { 100% 100% }
+
+			
+			vbox = {
+				margin = { 10 25 }
+
+				zoomarea = {
+					name = "knight_tree_zoom_area"
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+					scissor = yes
+					zoom = 1
+					zoom_step = 0.2
+					zoom_min = 0.2
+					zoom_max = 1.0
+					pan_position = { 0 0 }
+					draggable_by = left|middle
+
+					state = {
+						name = "_zoom_changed"
+						duration = 0.1
+						# bezier = { 0.05 0.55 0.46 1.02 }
+					}
+
+					zoomwidget = {
+						widget = {
+							flowcontainer = {
+								alwaystransparent = no
+								direction = vertical
+								resizeparent = yes
+
+								
+								dynamicgridbox = {
+									name = "knight_tree"
+									setitemsizefromcell = yes
+									#datacontext = "[GetPlayer.MakeScope.Var('my_knight_tree').Var('my_knight_tree_founder')]"
+									datamodel = "[GetPlayer.MakeScope.Var('opened_knight_tree').GetList('my_knight_tree_gui')]"
+									item = {
+										recursive = yes
+										dynasty_tree_top_teacher_custom = {}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			widget = {
+				parentanchor = top|right
+				position = { -5 20 }
+				size = { 31 31 }
+				button_close = {
+					name = "button_close"
+					shortcut = "close_window"
+					tooltip = "CLOSE_TOOLTIP"
+					onclick = "[GetVariableSystem.Clear( 'hello_knight_tree' )]"
+					onclick = "[GetScriptedGui('close_knight_tree').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End)]"
+					clicksound = "event:/SFX/UI/Generic/sfx_ui_generic_close"
+					using = Animation_ShowHide_Standard
+				}
+			}
+		}
+	}
+}

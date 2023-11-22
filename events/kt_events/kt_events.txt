@@ -1,0 +1,30 @@
+kt_set_knighthood.9900 = {
+	type = character_event
+	title = kt_track_knighthood.9900.t
+	desc = kt_track_knighthood.9900.desc
+
+	theme = faith
+
+	override_background = {
+		reference = temple_scope
+	}
+
+	left_portrait = {
+		character = scope:recipient
+		animation = happiness
+	}
+
+	right_portrait = {
+		character = root
+		animation = throne_room_applaud_1
+	}
+
+    immediate = {
+        
+    }
+
+	# Track Knight
+	option = {
+		name = kt_track_knighthood.9900.a
+	}
+}

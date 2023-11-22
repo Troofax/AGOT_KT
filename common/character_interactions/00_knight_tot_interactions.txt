@@ -1,0 +1,146 @@
+﻿# Create Knight Interaction
+set_knight_heir_interaction = {
+	category = interaction_debug_main
+	common_interaction = yes
+	icon = icon_liege
+	desc = set_knight_heir_interaction_desc
+
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+	
+	is_shown = {
+		debug_only = yes
+		scope:actor = {
+			is_ai = no
+			NOT = { this = scope:recipient }
+			OR = {
+				has_trait = knight
+				has_trait_xp = { 
+					trait = squire
+					track = knight
+					value >= 100
+				}
+			}
+			
+			scope:recipient = {
+				NOR = {
+					has_trait = knight
+					has_trait_xp = { 
+						trait = squire
+						track = knight
+						value >= 100
+					}
+				}
+			}
+		}
+	}
+	
+	on_accept = {
+		scope:recipient = { agot_become_a_knight_effect = yes }
+		knight_tree_se = { ACTOR = scope:actor RECIPIENT = scope:recipient }
+	}
+}
+
+# Enable Knight Tree Interaction
+# set_tracked_knight_interaction = {
+	# interface_priority = 200
+	# common_interaction = yes
+	# category = interaction_category_friendly
+	# icon = icon_dynasty
+	# desc = set_tracked_knight_interaction_desc
+
+	# auto_accept = yes
+	# use_diplomatic_range = no
+	# ignores_pending_interaction_block = yes
+
+	# is_shown = {
+		# scope:actor = {
+			# is_ai = no
+			# NOT = { this = scope:recipient }
+
+			# scope:recipient = {
+				# NOT = { has_character_flag = knight_tree }
+				# OR = {
+					# has_trait = knight
+					# has_trait_xp = {
+						# trait = squire
+						# track = knight
+						# value >=100
+					# }
+				# }
+			# }
+		# }
+	# }
+
+	# on_accept = {
+		# scope:recipient = {
+			# add_character_flag = knight_tree
+			# set_variable = my_knight_tree
+		# }
+		# du_knight_tree_se = { ACTOR = scope:actor RECIPIENT = scope:recipient }
+	# }
+# }
+
+
+# unset_tracked_knight_interaction = {
+	# category = interaction_category_friendly
+	# common_interaction = yes
+	# interface_priority = 200
+	# icon = icon_dynasty
+	# desc = set_tracked_knight_interaction_desc
+
+	# auto_accept = yes
+	# use_diplomatic_range = no
+	# ignores_pending_interaction_block = yes
+
+	# is_shown = {
+		# has_game_rule = kt_auto_off
+		# scope:recipient = { has_character_flag = knight_tree }
+		# scope:actor = { is_ai = no }
+	# }
+	# on_accept = {
+		# end_story = {
+			# type = story_cycle_teacher_tree
+			# save_temporary_scope_as = teacher_story_tree
+		# }
+		# scope:recipient = { add_character_flag = knight_tree }
+		# }
+	# }
+# }
+
+test_set_tracked_knight_interaction = { # Add me
+	interface_priority = 200
+	common_interaction = yes
+	category = interaction_category_friendly
+	icon = icon_dynasty
+	desc = test_set_tracked_knight_interaction_desc
+
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		debug_only = yes
+		scope:actor = {
+			is_ai = no
+			NOT = { this = scope:recipient }
+			scope:recipient = {
+				NOT = { has_character_flag = knight_tree }
+				OR = {
+					has_trait = knight
+					has_trait_xp = {
+						trait = squire
+						track = knight
+						value >=100
+					}
+				}
+			}
+		}
+	}
+
+	on_accept = {
+		scope:recipient = {	add_character_flag = knight_tree }
+		du_knight_tree_se = { ACTOR = scope:actor RECIPIENT = scope:recipient }
+	}
+}

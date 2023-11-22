@@ -1,0 +1,79 @@
+﻿story_cycle_teacher = { # Add
+
+	on_setup = {
+		set_variable = {
+			name = this_teacher
+			value = story_owner
+		}
+	}
+
+	on_end = {}
+
+	on_owner_death = {}
+}
+
+story_cycle_teacher_tree = { # Remove
+
+	on_setup = {}
+
+	on_end = {
+		every_in_list = {
+			variable = prune
+			end_story = yes
+		}
+		remove_list_global_variable = {
+			name = global_teacher_trees
+			target = this
+		}
+	}
+
+	on_owner_death = { # Pass on story or end
+		if = {
+			limit = {
+				any_in_list = {
+					variable = prune
+					OR = {
+						AND = {
+							exists = story_owner
+							story_owner = { is_alive = yes }
+						}
+						any_in_list = {
+							variable = students
+							is_alive = yes
+						}
+					}
+				}
+			}
+			random_in_list = { # Find valid new story owner
+				variable = prune
+				limit = {
+					OR = {
+						story_owner = { is_alive = yes }
+						any_in_list = {
+							variable = students
+							is_alive = yes
+						}
+					}
+				}
+				if = { limit = { story_owner = { is_alive = yes } } story_owner = { save_scope_as = new_story_owner } }
+				else = { random_in_list = { variable = students limit = { is_alive = yes } save_scope_as = new_story_owner } }
+			}
+			make_story_owner = scope:new_story_owner
+		}
+		else = {
+			every_in_list = {
+				variable = prune
+				end_story = yes
+			}
+			remove_list_global_variable = {
+				name = global_teacher_trees
+				target = this
+			}
+			change_global_variable = {
+				name = sc_trees_destroyed
+				add = 1
+			}
+			end_story = yes
+		}
+	}
+}
