@@ -1,0 +1,8 @@
+﻿l_korean:
+ set_knight_heir_interaction:0 "기사 작위 부여"
+ set_knight_heir_interaction_desc:0 ""
+
+ knight_tree_main:0 "기사의 나무"
+ knight_tree_members:0 "나이트 트리 멤버: [GetPlayer.MakeScope.Var('tree_member_amount').GetValue|0]"
+ knight_tree_living:0 "살아있는 회원: [GetPlayer.MakeScope.Var('tree_member_amount_alive').GetValue|0]"
+ death_date_kt:0 "[Scope.GetCharacter.GetDeathDate.GetYear]"

@@ -1,0 +1,175 @@
+﻿knight_tree_children = {
+	scope = character
+	#saved_scopes = {
+	#	illtype
+	#}
+	is_shown = {
+		has_variable = zero_teacher_tree
+	}
+	#is_valid = {
+	#	
+	#}
+	#effect = {
+	#	
+	#}
+}
+knight_tree_children_2 = {
+	scope = character
+	saved_scopes = {
+		main_knight_story
+	}
+	is_shown = {
+		scope:main_knight_story = {
+			any_in_list = {
+				variable = prune
+				var:this_teacher = root
+			}
+		}
+	}
+}
+
+check_has_trait_knight = {
+	scope = character
+	is_shown = {
+		OR = {
+			has_trait = knight
+			has_trait_xp = { 
+				trait = squire
+				track = knight
+				value >= 100
+			}
+		}
+		trigger_if = {
+			limit = { is_alive = yes }
+			has_variable = my_knight_tree
+		}
+		trigger_else = {
+			always = yes
+		}
+	}
+}
+
+open_knight_tree = {
+	scope = character
+
+	saved_scopes = {
+		opened_character
+	}
+
+	effect = {
+		if = { # Teacher and Student output story cycle
+			limit = {
+				any_in_global_list = {
+					variable = global_teacher_trees
+					OR = {
+						var:my_knight_tree_founder = scope:opened_character
+						any_in_list = {
+							variable = prune
+							any_in_list = {
+								variable = students
+								this = scope:opened_character
+							}
+						}
+					}
+				}
+			}
+			random_in_global_list = {
+				variable = global_teacher_trees
+				limit = {
+					OR = {
+						var:my_knight_tree_founder = scope:opened_character
+						any_in_list = {
+							variable = prune
+							any_in_list = {
+								variable = students
+								this = scope:opened_character
+							}
+						}
+					}
+				}
+				root = {
+					set_variable = {
+						name = opened_knight_tree
+						value = prev
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_variable = opened_knight_tree
+			}
+			var:opened_knight_tree = {
+				ordered_in_list = {
+					variable = prune
+					position = 0
+					save_scope_as = zero_teacher_tree
+				}
+			}
+			set_variable = {
+				name = zero_teacher_tree
+				value = scope:zero_teacher_tree
+			}
+			set_variable = {
+				name = tree_member_amount
+				value = tree_members_amount
+			}
+			set_variable = {
+				name = tree_member_amount_alive
+				value = tree_members_amount_alive
+			}
+		}
+		if = {
+			limit = {
+				debug_only = yes
+			}
+			set_variable = {
+				name = story_cycles_trees
+				value = story_cycles_tree_amount
+			}
+			set_variable = {
+				name = story_cycles_teachers
+				value = story_cycles_teachers_amount
+			}
+		}
+	}
+}
+close_knight_tree = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				debug_only = yes
+				has_variable = story_cycles_trees
+				has_variable = story_cycles_teachers
+			}
+			remove_variable = story_cycles_trees
+			remove_variable = story_cycles_teachers
+		}
+		if = {
+			limit = {
+				has_variable = zero_teacher_tree
+			}
+			remove_variable = zero_teacher_tree
+		}
+		if = {
+			limit = {
+				has_variable = opened_knight_tree
+			}
+			remove_variable = opened_knight_tree
+		}
+		if = {
+			limit = {
+				has_variable = tree_member_amount
+			}
+			remove_variable = tree_member_amount
+		}
+		if = {
+			limit = {
+				has_variable = tree_member_amount_alive
+			}
+			remove_variable = tree_member_amount_alive
+		}
+	}
+}

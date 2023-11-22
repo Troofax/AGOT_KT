@@ -1,0 +1,50 @@
+﻿story_cycles_tree_amount = {
+	value = 0
+	every_in_global_list = {
+		variable = global_teacher_trees
+		add = 1
+	}
+}
+story_cycles_teachers_amount = {
+	value = 0
+	every_in_global_list = {
+		variable = global_teacher_trees
+		every_in_list = {
+			variable = prune
+			add = 1
+		}
+	}
+}
+tree_members_amount = {
+	value = 1
+	var:opened_knight_tree = {
+		every_in_list = {
+			variable = prune
+			every_in_list = {
+				variable = students
+				add = 1
+			}
+		}
+	}
+}
+tree_members_amount_alive = {
+	value = 0
+	var:opened_knight_tree = {
+		every_in_list = {
+			variable = prune
+			every_in_list = {
+				variable = students
+				limit = { is_alive = yes }
+				add = 1
+			}
+		}
+		if = {
+			limit = {
+				var:my_knight_tree_founder = {
+					is_alive = yes
+				}
+			}
+			add = 1
+		}
+	}
+}

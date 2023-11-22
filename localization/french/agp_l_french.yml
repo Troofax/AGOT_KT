@@ -1,0 +1,8 @@
+﻿l_french:
+ set_knight_heir_interaction:0 "Octroi du titre de chevalier"
+ set_knight_heir_interaction_desc:0 ""
+
+ knight_tree_main:0 "Arbre à chevaliers"
+ knight_tree_members:0 "Membres de Knight Tree: [GetPlayer.MakeScope.Var('tree_member_amount').GetValue|0]"
+ knight_tree_living:0 "Membres vivants: [GetPlayer.MakeScope.Var('tree_member_amount_alive').GetValue|0]"
+ death_date_kt:0 "[Scope.GetCharacter.GetDeathDate.GetYear]"

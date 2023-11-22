@@ -1,0 +1,8 @@
+﻿l_simp_chinese:
+ set_knight_heir_interaction:0 "授予爵位"
+ set_knight_heir_interaction_desc:0 ""
+
+ knight_tree_main:0 "骑士树"
+ knight_tree_members:0 "骑士树成员: [GetPlayer.MakeScope.Var('tree_member_amount').GetValue|0]"
+ knight_tree_living:0 "在世成员: [GetPlayer.MakeScope.Var('tree_member_amount_alive').GetValue|0]"
+ death_date_kt:0 "[Scope.GetCharacter.GetDeathDate.GetYear]"

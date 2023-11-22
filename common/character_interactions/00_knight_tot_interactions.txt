@@ -1,0 +1,42 @@
+﻿set_knight_heir_interaction = {
+	category = interaction_debug_main
+	common_interaction = yes
+	icon = icon_liege
+	desc = set_knight_heir_interaction_desc
+
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+	
+	is_shown = {
+		debug_only = yes
+		scope:actor = {
+			is_ai = no
+			NOT = { this = scope:recipient }
+			OR = {
+				has_trait = knight
+				has_trait_xp = { 
+					trait = squire
+					track = knight
+					value >= 100
+				}
+			}
+			
+			scope:recipient = {
+				NOR = {
+					has_trait = knight
+					has_trait_xp = { 
+						trait = squire
+						track = knight
+						value >= 100
+					}
+				}
+			}
+		}
+	}
+	
+	on_accept = {
+		scope:recipient = { agot_become_a_knight_effect = yes }
+		du_knight_tree_se = { ACTOR = scope:actor RECIPIENT = scope:recipient }
+	}
+}
