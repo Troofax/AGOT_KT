@@ -5,7 +5,7 @@
 #			on_game_start_custom_te
 #		}
 #	}
-#	on_game_start_custom_te = { # all this done this way to make compatible with other mods
+#	on_game_start_custom_te = { # Done this way to make it compatible with other mods
 #		effect = {
 #			if = {
 #				limit = { game_start_date >= 8281.1.1 }

@@ -544,7 +544,7 @@ agot_set_squire_effect = {
 ################################
 
 agot_tournament_reward_knighthood_prize = {
-	du_knight_tree_se = { ACTOR = $HOST$ RECIPIENT = $WINNER$ } # Add me
+	du_knight_tree_se = { ACTOR = $HOST$ RECIPIENT = $WINNER$ }
 	$WINNER$ = {
 		agot_become_a_knight_effect = yes
 		create_character_memory = {

@@ -269,7 +269,7 @@ types DynastyTreeView
 					}#using = Line_DynastyTree
 				}
 
-				container = { # Student recursion
+				container = { # Student Recursion
 					parentanchor = hcenter
 					datacontext = "[Scope.GetCharacter]"
 				
@@ -556,7 +556,7 @@ types DynastyTreeView
 					}#using = Line_DynastyTree
 				}
 
-				container = { # Student recursion
+				container = { # Student Recursion
 					parentanchor = hcenter
 					
 				

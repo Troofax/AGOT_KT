@@ -44,7 +44,7 @@ check_has_trait_knight = {
 			has_variable = my_knight_tree
 		}
 		trigger_else = {
-			always = no # Changed to no for testing
+			always = yes # Changed back to yes after testing, see if this causes deadtrees
 		}
 	}
 }
@@ -57,7 +57,7 @@ open_knight_tree = {
 	}
 
 	effect = {
-		if = { # Teacher and Student output for story cycle
+		if = { # Applies variables to use for the tree
 			limit = {
 				any_in_global_list = {
 					variable = global_teacher_trees
@@ -135,7 +135,7 @@ open_knight_tree = {
 	}
 }
 
-close_knight_tree = {
+close_knight_tree = { # Clear variables from memory so you don't always open the same tree
 	scope = character
 
 	effect = {
