@@ -1,0 +1,26 @@
+# Remembering who you tracked
+kt_tracked_a_knight = {
+	categories = { positive martial }
+	icon = "battle.dds"
+
+	description = {
+		desc = kt_tracked_a_knight_desc
+	}
+
+	second_perspective_description = {
+		desc = kt_tracked_a_knight_second_perspective_desc
+	}
+
+	third_perspective_description = {
+		desc = kt_tracked_a_knight_third_perspective_desc
+	}
+
+	participants = {
+        $ACTOR$
+        $RECIPIENT$
+    }
+
+	duration = {
+		years = 200
+	}
+}

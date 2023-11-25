@@ -35,7 +35,7 @@ types DynastyTreeView
 		ignoreinvisible = yes
 
 
-		flowcontainer = {
+		flowcontainer = { ##### Tree Stump Container
 			name = "knight_tree_top_item_line_area"
 			direction = vertical
 			ignoreinvisible = yes
@@ -119,12 +119,12 @@ types DynastyTreeView
 							}
 
 							widget = {
-								size = { 165 175 }
+								size = { 120 120 }
 								parentanchor = hcenter
 
-								coa_house_huge = {
+								coa_house_big = {
 									parentanchor = bottom|hcenter
-									datacontext = [Dynasty]
+									datacontext = "[Character.GetDynasty]"
 								}
 							}
 
@@ -196,7 +196,8 @@ types DynastyTreeView
 
 						align = center
 						#text = "[Scope.GetCharacter.GetShortUINameNotMeNoTooltip]"
-						text = "[Scope.GetCharacter.GetFirstNameNoTooltip] [Select_CString(Scope.GetCharacter.GetHouse.IsValid, Scope.GetCharacter.GetHouse.GetNameNoTooltip, '' )]"
+						# Add me Ser
+						text = "Ser [Scope.GetCharacter.GetFirstNameNoTooltip] [Select_CString(Scope.GetCharacter.GetHouse.IsValid, Scope.GetCharacter.GetHouse.GetNameNoTooltip, '' )]"
 						default_format = "#high"
 						fontsize = 20
 						fontsize_min = 10
@@ -231,7 +232,8 @@ types DynastyTreeView
 						texture = "gfx/interface/icons/symbols/plus_minus.dds"
 						parentanchor = hcenter
 						tooltip = "[SelectLocalization(GetVariableSystem.Exists('hello_knight_tree_children'), 'DYNASTY_VIEW_CHILDREN_HIDE', 'DYNASTY_VIEW_CHILDREN_SHOW')]"
-						frame = "[GetVariableSystem.Exists('hello_knight_tree_children')]"
+						frame = "[BoolTo1And2(GetVariableSystem.Exists('hello_knight_tree_children'))]" # Add me
+						#frame = "[GetVariableSystem.Exists('hello_knight_tree_children')]"
 						onclick = "[GetVariableSystem.Toggle('hello_knight_tree_children')]"
 					}
 				}
@@ -303,7 +305,7 @@ types DynastyTreeView
 		ignoreinvisible = yes
 
 
-		flowcontainer = {
+		flowcontainer = { ##### Tree Branch Container
 			name = "knight_tree_item_line_area"
 			direction = vertical
 			ignoreinvisible = yes
@@ -329,7 +331,7 @@ types DynastyTreeView
 					to = { 0 12 }
 				}
 
-				flowcontainer = {
+				flowcontainer = { ##### Student Character
 					name = "character_container"
 					direction = vertical
 					ignoreinvisible = yes
@@ -340,15 +342,16 @@ types DynastyTreeView
 						# always returns true. Function call allows to connect the widget with the data in code
 						#visible = "[Scope.SetupCharacterWidget(PdxGuiWidget.Self)]"
 
-						flowcontainer = {
+						flowcontainer = { ##### Student Header Container
 							name = "tree_header"
-							datacontext = "[Character.GetHouse]"
 							datacontext = "[Character.GetDynasty]"
+							datacontext = "[Character.GetHouse]"
 							visible = "[ObjectsEqual(Character.MakeScope.Var('my_knight_tree_curr_head').Var('my_knight_tree_founder').Char, Character.Self)]"
 							ignoreinvisible = yes
 							direction = vertical
-							minimumsize = { 330 255 }
-							position = { 0 -250 }
+							spacing = 29
+							minimumsize = { 100 100 }
+							position = { 44 -10 }
 
 							background = {
 								using = Background_Area_With_Header_Dark
@@ -375,45 +378,45 @@ types DynastyTreeView
 								}
 							}
 
-							text_single = {
-								parentanchor = hcenter
-								autoresize = yes
-								text = "DYNASTY_VIEW_INFO_TITLE"
-							}
+							# text_single = {
+								# parentanchor = hcenter
+								# autoresize = yes
+								# text = "DYNASTY_VIEW_INFO_TITLE"
+							# }
 
-							icon = {
-								parentanchor = hcenter
-								texture = "gfx/interface/component_tiles/tile_divider_01.dds"
-							}
+							# icon = {
+								# parentanchor = hcenter
+								# texture = "gfx/interface/component_tiles/tile_divider_01.dds"
+							# }
 
 							widget = {
-								size = { 165 175 }
-								parentanchor = hcenter
+								size = { 120 120 }
+								parentanchor = vcenter|hcenter
 
-								coa_house_huge = {
-									parentanchor = bottom|hcenter
-									datacontext = [Dynasty]
+								coa_house_big = {
+									parentanchor = hcenter
+									datacontext = "[Character.GetDynasty]"
 								}
 							}
 
-							text_single = {
-								name = "dynasty_prestige"
-								parentanchor = hcenter
-								autoresize = yes
-								text = "DYNASTY_VIEW_PRESTIGE"
-							}
+							# text_single = {
+								# name = "dynasty_prestige"
+								# parentanchor = hcenter
+								# autoresize = yes
+								# text = "DYNASTY_VIEW_PRESTIGE"
+							# }
 
-							text_single = {
-								name = "house_motto"
-								parentanchor = hcenter
-								autoresize = yes
-								text = "HOUSE_VIEW_MOTTO"
-							}
+							# text_single = {
+								# name = "house_motto"
+								# parentanchor = hcenter
+								# autoresize = yes
+								# text = "HOUSE_VIEW_MOTTO"
+							# }
 
-							icon = {
-								parentanchor = hcenter
-								texture = "gfx/interface/component_tiles/tile_divider_01.dds"
-							}
+							# icon = {
+								# parentanchor = hcenter
+								# texture = "gfx/interface/component_tiles/tile_divider_01.dds"
+							# }
 						}
 
 						portrait_body = {
@@ -477,7 +480,7 @@ types DynastyTreeView
 
 						align = center
 						#text = "[Scope.GetCharacter.GetShortUINameNotMeNoTooltip]"
-						text = "[Scope.GetCharacter.GetFirstNameNoTooltip] [Select_CString(Scope.GetCharacter.GetHouse.IsValid, Scope.GetCharacter.GetHouse.GetNameNoTooltip, '' )]"
+						text = "Ser [Scope.GetCharacter.GetFirstNameNoTooltip] [Select_CString(Scope.GetCharacter.GetHouse.IsValid, Scope.GetCharacter.GetHouse.GetNameNoTooltip, '' )]"
 						default_format = "#high"
 						fontsize = 20
 						fontsize_min = 10

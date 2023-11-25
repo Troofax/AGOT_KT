@@ -109,7 +109,7 @@ set_knight_heir_interaction = {
 	# }
 # }
 
-test_set_tracked_knight_interaction = { # Add me
+test_set_tracked_knight_interaction = { # Add me when ready
 	interface_priority = 200
 	common_interaction = yes
 	category = interaction_category_friendly
@@ -122,11 +122,11 @@ test_set_tracked_knight_interaction = { # Add me
 
 	is_shown = {
 		debug_only = yes
+		has_game_rule = kt_auto_off
 		scope:actor = {
 			is_ai = no
 			NOT = { this = scope:recipient }
 			scope:recipient = {
-				NOT = { has_character_flag = knight_tree }
 				OR = {
 					has_trait = knight
 					has_trait_xp = {
@@ -135,12 +135,19 @@ test_set_tracked_knight_interaction = { # Add me
 						value >=100
 					}
 				}
+				NOR = {
+					has_character_flag = knight_tree
+					has_variable = my_knight_tree
+				}
 			}
 		}
 	}
 
 	on_accept = {
-		scope:recipient = {	add_character_flag = knight_tree }
-		du_knight_tree_se = { ACTOR = scope:actor RECIPIENT = scope:recipient }
+		scope:recipient = {
+			add_character_flag = knight_tree
+			set_variable = my_knight_tree
+		}
+		kt_express_knighthood = { ACTOR = scope:actor RECIPIENT = scope:recipient }
 	}
 }
