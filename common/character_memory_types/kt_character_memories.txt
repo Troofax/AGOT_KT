@@ -16,11 +16,11 @@ kt_tracked_a_knight = {
 	}
 
 	participants = {
-        $ACTOR$
+        # $ACTOR$
         $RECIPIENT$
     }
 
 	duration = {
-		years = 200
+		years = 250
 	}
 }

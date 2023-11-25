@@ -498,13 +498,13 @@ du_knight_tree_se = { # Add me once working
 							value = scope:teacher.var:my_knight_tree
 						}
 					}
-					if = { # Check if already has students
+					if = { # Check if teacher already has students
 						limit = {
 							any_owned_story = {
 								story_type = story_cycle_teacher
 							}
 						}
-						random_owned_story = {
+						random_owned_story = { # Add the student
 							limit = { story_type = story_cycle_teacher }
 							add_to_variable_list = {
 								name = students
@@ -598,46 +598,30 @@ du_knight_tree_se = { # Add me once working
 	}
 }
 
-kt_track_a_knight_effect = {
-	if = {
-		limit = {
-			has_trait = knight
-		}
-	}
-	else_if = {
-		limit = {
-			has_trait = squire
-		}
-	}
-
-	save_scope_as = my_relation
-	if = {
-		limit = {
-			scope:recipient = { is_alive = yes }
-		}
-		trigger_event = {
-			id = kt_track_knighthood.9900
-		}
-	}
-}
-
 kt_express_knighthood = {
 	$RECIPIENT$ = {
+		save_temporary_scope_as = student
 		create_character_memory = {
 			type = kt_tracked_a_knight
 			participants = {
-				ACTOR = $ACTOR$
+				$ACTOR$
 			}
 		}
 		add_character_flag = knight_tree
-		set_variable = my_knight_tree
+		set_variable = {
+			name = my_knight_tree
+			value = scope:teacher.var:my_knight_tree
+		}
+		# set_variable = my_knight_tree
 	}
 	$ACTOR$ = {
-		create_character_memory = {
-			type = kt_tracked_a_knight
-			participants = {
-				ACTOR = $RECIPIENT$
-			}
-		}
+		save_temporary_scope_as = teacher
+		# create_character_memory = {
+		# 	type = kt_tracked_a_knight
+		# 	participants = {
+		# 		$RECIPIENT$
+		# 	}
+		# }
 	}
+	du_knight_tree_se = { ACTOR = teacher RECIPIENT = student}
 }
