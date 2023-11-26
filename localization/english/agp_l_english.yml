@@ -1,6 +1,8 @@
 ﻿l_english:
  set_knight_heir_interaction:0 "Grant knighthood"
  set_knight_heir_interaction_desc:0 ""
+ set_tracked_knight_interaction:0 "Enable Knight Tree"
+ set_tracked_knight_interaction_desc:0 "This will begin a knight tree for the target knight, any future squires turned knights will be recorded in their tree. #R This decision is irreversible.#!"
  
  rule_kt_auto_rule:0 "#G KT:#! Knight Tree Generation"
  setting_kt_auto_on:0 "#high Auto#!"
