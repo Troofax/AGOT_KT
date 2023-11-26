@@ -56,8 +56,8 @@ open_knight_tree = {
 		opened_character
 	}
 
-	effect = {
-		if = { # Teacher and Student output story cycle
+	effect = {  # Applies variables to use for the tree
+		if = {
 			limit = {
 				any_in_global_list = {
 					variable = global_teacher_trees
@@ -134,7 +134,8 @@ open_knight_tree = {
 		}
 	}
 }
-close_knight_tree = {
+
+close_knight_tree = { # Clear variables from memory so you don't always open the same tree
 	scope = character
 
 	effect = {
