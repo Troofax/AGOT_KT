@@ -106,7 +106,7 @@ window = {
 				}
 			}
 
-			widget = {
+			widget = { # Knight Tree Button Insert
 				parentanchor = vcenter|right
 				visible = "[GetScriptedGui('check_has_trait_knight').IsShown( GuiScope.SetRoot( Character.MakeScope ).End)]"
 				size = { 44 44 }

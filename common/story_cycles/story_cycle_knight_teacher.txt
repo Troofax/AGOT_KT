@@ -1,4 +1,4 @@
-﻿story_cycle_teacher = {
+﻿story_cycle_teacher = { # Add
 
 	on_setup = {
 		set_variable = {
@@ -13,7 +13,7 @@
 	on_owner_death = {
 	}
 }
-story_cycle_teacher_tree = {
+story_cycle_teacher_tree = {  # Set up destroy conditions
 
 	on_setup = {
 	}
@@ -29,7 +29,7 @@ story_cycle_teacher_tree = {
 		}
 	}
 
-	on_owner_death = {
+	on_owner_death = { # Pass on story or end
 		if = {
 			limit = {
 				any_in_list = {
@@ -46,7 +46,7 @@ story_cycle_teacher_tree = {
 					}
 				}
 			}
-			random_in_list = {
+			random_in_list = { # Find valid new story owner
 				variable = prune
 				limit = {
 					OR = {

@@ -7,7 +7,7 @@ du_knight_tree_se = {
 		if = {
 			limit = { scope:student = { is_alive = yes } scope:teacher = { is_alive = yes } }
 			scope:teacher = {
-				if = { # Check if already a student
+				if = { # If they were already someone's student
 					limit = {
 						has_variable = my_knight_tree
 					}
@@ -17,7 +17,7 @@ du_knight_tree_se = {
 							value = scope:teacher.var:my_knight_tree
 						}
 					}
-					if = { # Check if already has students
+					if = { # If they already have their own students
 						limit = {
 							any_owned_story = {
 								story_type = story_cycle_teacher
@@ -31,7 +31,7 @@ du_knight_tree_se = {
 							}
 						}
 					}
-					else = { # Check if there were no students
+					else = { # If there were no students yet
 						create_story = {
 							type = story_cycle_teacher
 							save_temporary_scope_as = teacher_story
@@ -55,7 +55,7 @@ du_knight_tree_se = {
 						}
 					}
 				}
-				else = { # Check if there were no students, and if they are not a student
+				else = { # If there were no students and they themselves are not anyone's student
 					create_story = {
 						type = story_cycle_teacher
 						save_temporary_scope_as = teacher_story
@@ -126,15 +126,15 @@ du_knight_tree_se = {
 				limit = { scope:student = { is_alive = yes } scope:teacher = { is_alive = yes } }
 			}
 			scope:teacher = {
-				if = { # Check if already a student with a check for manual flag before processing
-					limit = { scope:teacher = { has_character_flag = knight_tree } }
+				if = { # If they were already someone's student and if KT memory exists
+					limit = { scope:teacher = { has_memory_type = knight_tree } }
 					scope:student = {
 						set_variable = {
 							name = my_knight_tree
 							value = scope:teacher.var:my_knight_tree
 						}
 					}
-					if = { # Check if already has students
+					if = { # If they already have their own students
 						limit = {
 							any_owned_story = {
 								story_type = story_cycle_teacher
@@ -148,7 +148,7 @@ du_knight_tree_se = {
 							}
 						}
 					}
-					else = { # Check if there were no students
+					else = { # If there were no students yet
 						create_story = {
 							type = story_cycle_teacher
 							save_temporary_scope_as = teacher_story
@@ -172,7 +172,7 @@ du_knight_tree_se = {
 						}
 					}
 				}
-				else = { # Check if there were no students, and if they are not a student
+				else = { # If there were no students and they themselves are not anyone's student
 					create_story = {
 						type = story_cycle_teacher
 						save_temporary_scope_as = teacher_story
