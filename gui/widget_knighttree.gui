@@ -35,7 +35,7 @@ types DynastyTreeView
 		ignoreinvisible = yes
 
 
-		flowcontainer = {
+		flowcontainer = { ##### Tree Stump Container
 			name = "knight_tree_top_item_line_area"
 			direction = vertical
 			ignoreinvisible = yes
@@ -194,8 +194,8 @@ types DynastyTreeView
 						elide = right
 
 						align = center
-						#text = "[Scope.GetCharacter.GetShortUINameNotMeNoTooltip]"
-						text = "[Scope.GetCharacter.GetFirstNameNoTooltip] [Select_CString(Scope.GetCharacter.GetHouse.IsValid, Scope.GetCharacter.GetHouse.GetNameNoTooltip, '' )]"
+						#text = "[Ser Scope.GetCharacter.GetShortUINameNotMeNoTooltip]"
+						text = "[Ser Scope.GetCharacter.GetFirstNameNoTooltip] [Select_CString(Scope.GetCharacter.GetHouse.IsValid, Scope.GetCharacter.GetHouse.GetNameNoTooltip, '' )]"
 						default_format = "#high"
 						fontsize = 20
 						fontsize_min = 10
@@ -266,7 +266,7 @@ types DynastyTreeView
 					}#using = Line_DynastyTree
 				}
 
-				container = { # Recursion for students
+				container = { # Student Recursion
 					parentanchor = hcenter
 					datacontext = "[Scope.GetCharacter]"
 				
@@ -302,7 +302,7 @@ types DynastyTreeView
 		ignoreinvisible = yes
 
 
-		flowcontainer = {
+		flowcontainer = {  ##### Tree Branch Container
 			name = "knight_tree_item_line_area"
 			direction = vertical
 			ignoreinvisible = yes
@@ -328,7 +328,7 @@ types DynastyTreeView
 					to = { 0 12 }
 				}
 
-				flowcontainer = {
+				flowcontainer = { ##### Student Character
 					name = "character_container"
 					direction = vertical
 					ignoreinvisible = yes
@@ -339,7 +339,7 @@ types DynastyTreeView
 						# always returns true. Function call allows to connect the widget with the data in code
 						#visible = "[Scope.SetupCharacterWidget(PdxGuiWidget.Self)]"
 
-						flowcontainer = {
+						flowcontainer = {  ##### Student Header Container
 							name = "tree_header"
 							datacontext = "[Character.GetHouse]"
 							datacontext = "[Character.GetDynasty]"
@@ -552,7 +552,7 @@ types DynastyTreeView
 					}#using = Line_DynastyTree
 				}
 
-				container = { #здесь рекурсия в детей
+				container = { # Student Recursion
 					parentanchor = hcenter
 					
 				
@@ -588,7 +588,7 @@ types DynastyTreeView
 		#}
 	}
 }
-window = {
+window = { # Knight Tree Opened Window
 	name = "widget_knighttree"
 	parentanchor = top|hcenter
 	position = { 100 250 } # Knight Tree Window Position
