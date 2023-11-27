@@ -54,7 +54,7 @@ types DynastyTreeView
 				}
 
 				text_single = {
-					parentanchor =  hcenter
+					parentanchor = hcenter
 					autoresize = yes
 					text = "[Scope.GetCharacter.GetBirthDate]"
 				}
@@ -107,7 +107,7 @@ types DynastyTreeView
 							}
 
 							text_single = {
-								parentanchor =  hcenter
+								parentanchor = hcenter
 								autoresize = yes
 								text = "DYNASTY_VIEW_INFO_TITLE"
 							}
@@ -119,24 +119,24 @@ types DynastyTreeView
 
 							widget = {
 								size = { 165 175 }
-								parentanchor =  hcenter
+								parentanchor = hcenter
 
 								coa_dynasty_huge = {
-									parentanchor =  bottom|hcenter
+									parentanchor = bottom|hcenter
 									datacontext = "[Dynasty]"
 								}
 							}
 
 							text_single = {
 								name = "dynasty_prestige"
-								parentanchor =  hcenter
+								parentanchor = hcenter
 								autoresize = yes
 								text = "DYNASTY_VIEW_PRESTIGE"
 							}
 
 							text_single = {
 								name = "house_motto"
-								parentanchor =  hcenter
+								parentanchor = hcenter
 								autoresize = yes
 								text = "HOUSE_VIEW_MOTTO"
 							}
@@ -187,7 +187,7 @@ types DynastyTreeView
 					text_single = {
 						name = "title"
 						size = { 140 30 }
-						parentanchor =  hcenter
+						parentanchor = hcenter
 
 						# Must be autoresize no, since the text scales to nearest whole size increment, and therefore would push around other elements in the flowcontainer parent
 						autoresize = no
@@ -201,7 +201,7 @@ types DynastyTreeView
 						fontsize_min = 10
 					}
 					text_single = {
-						parentanchor =  hcenter
+						parentanchor = hcenter
 						autoresize = yes
 						raw_text = "[Scope.GetCharacter.GetBirthDate.GetYear]-[Select_CString(Scope.GetCharacter.IsAlive, '?', Localize('death_date_kt') )]"
 					}
@@ -230,7 +230,7 @@ types DynastyTreeView
 						texture = "gfx/interface/icons/symbols/plus_minus.dds"
 						parentanchor = hcenter
 						tooltip = "[SelectLocalization(GetVariableSystem.Exists('hello_knight_tree_children'), 'DYNASTY_VIEW_CHILDREN_HIDE', 'DYNASTY_VIEW_CHILDREN_SHOW')]"
-						frame = "[GetVariableSystem.Exists('hello_knight_tree_children')]"
+						frame = "[BoolTo1And2(GetVariableSystem.Exists('hello_knight_tree_children'))]" # To make +/- change
 						onclick = "[GetVariableSystem.Toggle('hello_knight_tree_children')]"
 					}
 				}
@@ -302,7 +302,7 @@ types DynastyTreeView
 		ignoreinvisible = yes
 
 
-		flowcontainer = {  ##### Tree Branch Container
+		flowcontainer = { ##### Tree Branch Container
 			name = "knight_tree_item_line_area"
 			direction = vertical
 			ignoreinvisible = yes
@@ -339,15 +339,15 @@ types DynastyTreeView
 						# always returns true. Function call allows to connect the widget with the data in code
 						#visible = "[Scope.SetupCharacterWidget(PdxGuiWidget.Self)]"
 
-						flowcontainer = {  ##### Student Header Container
+						flowcontainer = { ##### Student Header Container
 							name = "tree_header"
 							datacontext = "[Character.GetHouse]"
 							datacontext = "[Character.GetDynasty]"
 							visible = "[ObjectsEqual(Character.MakeScope.Var('my_knight_tree_curr_head').Var('my_knight_tree_founder').Char, Character.Self)]"
 							ignoreinvisible = yes
 							direction = vertical
-							minimumsize = { 330 255 }
-							position = { 0 -250 }
+							minimumsize = { 100 100 } # Lowered to fit inline
+							position = { 44 -10 }
 
 							background = {
 								using = Background_Area_With_Header_Dark
@@ -374,45 +374,45 @@ types DynastyTreeView
 								}
 							}
 
-							text_single = {
-								parentanchor =  hcenter
-								autoresize = yes
-								text = "DYNASTY_VIEW_INFO_TITLE"
-							}
+							# text_single = {
+								# parentanchor = hcenter
+								# autoresize = yes
+								# text = "DYNASTY_VIEW_INFO_TITLE"
+							# }
 
-							icon = {
-								parentanchor = hcenter
-								texture = "gfx/interface/component_tiles/tile_divider_01.dds"
-							}
+							# icon = {
+								# parentanchor = hcenter
+								# texture = "gfx/interface/component_tiles/tile_divider_01.dds"
+							# }
 
 							widget = {
-								size = { 165 175 }
-								parentanchor =  hcenter
+								size = { 120 120 } # Resized COA for Bastards
+								parentanchor = vcenter|hcenter
 
 								coa_dynasty_huge = {
-									parentanchor =  bottom|hcenter
-									datacontext = "[Dynasty]"
+									parentanchor = hcenter
+									datacontext = "[Character.GetDynasty]"
 								}
 							}
 
-							text_single = {
-								name = "dynasty_prestige"
-								parentanchor =  hcenter
-								autoresize = yes
-								text = "DYNASTY_VIEW_PRESTIGE"
-							}
+							# text_single = {
+								# name = "dynasty_prestige"
+								# parentanchor = hcenter
+								# autoresize = yes
+								# text = "DYNASTY_VIEW_PRESTIGE"
+							# }
 
-							text_single = {
-								name = "house_motto"
-								parentanchor =  hcenter
-								autoresize = yes
-								text = "HOUSE_VIEW_MOTTO"
-							}
+							# text_single = {
+								# name = "house_motto"
+								# parentanchor = hcenter
+								# autoresize = yes
+								# text = "HOUSE_VIEW_MOTTO"
+							# }
 
-							icon = {
-								parentanchor = hcenter
-								texture = "gfx/interface/component_tiles/tile_divider_01.dds"
-							}
+							# icon = {
+								# parentanchor = hcenter
+								# texture = "gfx/interface/component_tiles/tile_divider_01.dds"
+							# }
 						}
 
 						portrait_body = {
@@ -468,7 +468,7 @@ types DynastyTreeView
 					text_single = {
 						name = "title"
 						size = { 140 30 }
-						parentanchor =  hcenter
+						parentanchor = hcenter
 
 						# Must be autoresize no, since the text scales to nearest whole size increment, and therefore would push around other elements in the flowcontainer parent
 						autoresize = no
@@ -482,7 +482,7 @@ types DynastyTreeView
 						fontsize_min = 10
 					}
 					text_single = {
-						parentanchor =  hcenter
+						parentanchor = hcenter
 						autoresize = yes
 						raw_text = "[Scope.GetCharacter.GetBirthDate.GetYear]-[Select_CString(Scope.GetCharacter.IsAlive, '?', Localize('death_date_kt') )]"
 					}
@@ -654,13 +654,13 @@ window = { # Knight Tree Opened Window
 			text_single = {
 				text = "knight_tree_members"
 				using = Font_Type_Flavor
-				parentanchor =  right
+				parentanchor = right
 				margin_right = 70
 			}
 			text_single = {
 				text = "knight_tree_living"
 				using = Font_Type_Flavor
-				parentanchor =  right
+				parentanchor = right
 				margin_right = 70
 			}
 		}
