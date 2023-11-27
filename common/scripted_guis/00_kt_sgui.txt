@@ -44,7 +44,7 @@ check_has_trait_knight = {
 			has_variable = my_knight_tree
 		}
 		trigger_else = {
-			always = yes # Changed back to yes after testing, see if this causes deadtrees
+			always = yes
 		}
 	}
 }

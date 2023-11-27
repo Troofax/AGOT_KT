@@ -39,8 +39,8 @@ types DynastyTreeView
 			name = "knight_tree_top_item_line_area"
 			direction = vertical
 			ignoreinvisible = yes
-			#margin = { 400 80 } # Add me
-			position = { 400 100 } # Add me instead
+			#margin = { 400 80 } # Added me
+			position = { 400 100 } # Added me instead
 
 			container = {
 				parentanchor = hcenter
@@ -196,7 +196,7 @@ types DynastyTreeView
 
 						align = center
 						#text = "[Scope.GetCharacter.GetShortUINameNotMeNoTooltip]"
-						# Add me Ser
+						# Added me Ser
 						text = "Ser [Scope.GetCharacter.GetFirstNameNoTooltip] [Select_CString(Scope.GetCharacter.GetHouse.IsValid, Scope.GetCharacter.GetHouse.GetNameNoTooltip, '' )]"
 						default_format = "#high"
 						fontsize = 20
@@ -232,7 +232,7 @@ types DynastyTreeView
 						texture = "gfx/interface/icons/symbols/plus_minus.dds"
 						parentanchor = hcenter
 						tooltip = "[SelectLocalization(GetVariableSystem.Exists('hello_knight_tree_children'), 'DYNASTY_VIEW_CHILDREN_HIDE', 'DYNASTY_VIEW_CHILDREN_SHOW')]"
-						frame = "[BoolTo1And2(GetVariableSystem.Exists('hello_knight_tree_children'))]" # Add me
+						frame = "[BoolTo1And2(GetVariableSystem.Exists('hello_knight_tree_children'))]" # Added me
 						#frame = "[GetVariableSystem.Exists('hello_knight_tree_children')]"
 						onclick = "[GetVariableSystem.Toggle('hello_knight_tree_children')]"
 					}
@@ -595,7 +595,7 @@ types DynastyTreeView
 window = { # Knight Tree Opened Window
 	name = "widget_knighttree"
 	parentanchor = top|hcenter
-	position = { 100 250 } # Window Position Add Me
+	position = { 100 250 } # Window Position Added
 	size = { 1400 900 }
 	movable = yes
 	layer = middle

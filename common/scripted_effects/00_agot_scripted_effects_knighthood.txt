@@ -60,7 +60,7 @@
 }
 
 agot_add_become_a_knight_prestige_effect = {
-	du_knight_tree_se = { ACTOR = $KNIGHT_MAKER$ RECIPIENT = $KNIGHT_TO_BE$ } # Add me
+	du_knight_tree_se = { ACTOR = $KNIGHT_MAKER$ RECIPIENT = $KNIGHT_TO_BE$ } # Added me
 	add_prestige = {
 		#value = 25 # AGOT REVIEW: See how the higher values feel
 		value = 50
