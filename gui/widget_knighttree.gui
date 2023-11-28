@@ -194,8 +194,8 @@ types DynastyTreeView
 						elide = right
 
 						align = center
-						#text = "[Ser Scope.GetCharacter.GetShortUINameNotMeNoTooltip]"
-						text = "[Ser Scope.GetCharacter.GetFirstNameNoTooltip] [Select_CString(Scope.GetCharacter.GetHouse.IsValid, Scope.GetCharacter.GetHouse.GetNameNoTooltip, '' )]"
+						#text = "Ser [Scope.GetCharacter.GetShortUINameNotMeNoTooltip]"
+						text = "Ser [Scope.GetCharacter.GetFirstNameNoTooltip] [Select_CString(Scope.GetCharacter.GetHouse.IsValid, Scope.GetCharacter.GetHouse.GetNameNoTooltip, '' )]"
 						default_format = "#high"
 						fontsize = 20
 						fontsize_min = 10
@@ -475,8 +475,8 @@ types DynastyTreeView
 						elide = right
 
 						align = center
-						#text = "[Scope.GetCharacter.GetShortUINameNotMeNoTooltip]"
-						text = "[Scope.GetCharacter.GetFirstNameNoTooltip] [Select_CString(Scope.GetCharacter.GetHouse.IsValid, Scope.GetCharacter.GetHouse.GetNameNoTooltip, '' )]"
+						#text = "Ser [Scope.GetCharacter.GetShortUINameNotMeNoTooltip]"
+						text = "Ser [Scope.GetCharacter.GetFirstNameNoTooltip] [Select_CString(Scope.GetCharacter.GetHouse.IsValid, Scope.GetCharacter.GetHouse.GetNameNoTooltip, '' )]"
 						default_format = "#high"
 						fontsize = 20
 						fontsize_min = 10
