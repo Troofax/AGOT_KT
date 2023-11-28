@@ -19,6 +19,11 @@
  kt_tracked_a_knight_second_perspective_desc:0 "You tracked this knight"
  kt_tracked_a_knight_third_perspective_desc:0 "This knight was tracked by someone"
 
+ kt_knighted:0 "Knight Tree +1"
+ kt_knighted_desc:0 "I was added to a knight tree"
+ kt_knighted_second_perspective_desc:0 "This character was added to a knight tree"
+ kt_knighted_third_perspective_desc:0 "This character was added to a knight tree"
+
  test_set_tracked_knight_interaction:0 "Test Knight Tree Creation"
  test_set_tracked_knight_interaction_desc:0 "#B Testing. #G Testing. #R Testing."
 

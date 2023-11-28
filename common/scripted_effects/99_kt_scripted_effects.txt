@@ -9,7 +9,7 @@ knight_tree_se = {
 		if = {
 			limit = { scope:student = { is_alive = yes } scope:teacher = { is_alive = yes } }
 			scope:teacher = {
-				if = { # If they were already someone's student
+				if = { # if they were already someone's student
 					limit = {
 						has_variable = my_knight_tree
 					}
@@ -19,7 +19,7 @@ knight_tree_se = {
 							value = scope:teacher.var:my_knight_tree
 						}
 					}
-					if = { # If they already have their own students
+					if = { # if they already have their own students
 						limit = {
 							any_owned_story = {
 								story_type = story_cycle_teacher
@@ -33,12 +33,12 @@ knight_tree_se = {
 							}
 						}
 					}
-					else = { # If there were no students yet
+					else = { # if there were no students yet
 						create_story = {
 							type = story_cycle_teacher
 							save_temporary_scope_as = teacher_story
 						}
-						if = { # Remove errors
+						if = { # remove errors
 							limit = {
 								exists = scope:teacher_story
 							}
@@ -57,7 +57,7 @@ knight_tree_se = {
 						}
 					}
 				}
-				else = { # If there were no students and they themselves are not anyone's student
+				else = { # if there were no students and they themselves are not anyone's student
 					create_story = {
 						type = story_cycle_teacher
 						save_temporary_scope_as = teacher_story
@@ -67,7 +67,7 @@ knight_tree_se = {
 						save_temporary_scope_as = teacher_story_tree
 					}
 					if = {
-						limit = { # Remove errors
+						limit = { # remove errors
 							exists = scope:teacher_story
 							exists = scope:teacher_story_tree
 						}
@@ -91,7 +91,7 @@ knight_tree_se = {
 								name = my_knight_tree_gui
 								target = scope:teacher
 							}
-							if = { # Remove error log
+							if = { # remove error log
 								limit = {
 									always = no
 									has_variable_list = my_knight_tree_gui
@@ -123,12 +123,12 @@ knight_tree_se = {
 du_knight_tree_se = { # Add me once working
 	$ACTOR$ = { save_temporary_scope_as = teacher }
 	$RECIPIENT$ = { save_temporary_scope_as = student }
-	if = {
+	if = { # Requires Auto
 		limit = { has_game_rule = kt_auto_on }
 		if = {
 			limit = { scope:student = { is_alive = yes } scope:teacher = { is_alive = yes } }
 			scope:teacher = {
-				if = { # If they were already someone's student
+				if = { # if they were already someone's student
 					limit = {
 						has_variable = my_knight_tree
 					}
@@ -138,7 +138,7 @@ du_knight_tree_se = { # Add me once working
 							value = scope:teacher.var:my_knight_tree
 						}
 					}
-					if = { # If they already have their own students
+					if = { # if they already have their own students
 						limit = {
 							any_owned_story = {
 								story_type = story_cycle_teacher
@@ -152,12 +152,12 @@ du_knight_tree_se = { # Add me once working
 							}
 						}
 					}
-					else = { # If there were no students yet
+					else = { # if there were no students yet
 						create_story = {
 							type = story_cycle_teacher
 							save_temporary_scope_as = teacher_story
 						}
-						if = { # Remove errors
+						if = { # remove errors
 							limit = {
 								exists = scope:teacher_story
 							}
@@ -176,7 +176,7 @@ du_knight_tree_se = { # Add me once working
 						}
 					}
 				}
-				else = { # If there were no students and they themselves are not anyone's student
+				else = { # if there were no students and they themselves are not anyone's student
 					create_story = {
 						type = story_cycle_teacher
 						save_temporary_scope_as = teacher_story
@@ -186,7 +186,7 @@ du_knight_tree_se = { # Add me once working
 						save_temporary_scope_as = teacher_story_tree
 					}
 					if = {
-						limit = { # Remove errors
+						limit = { # remove errors
 							exists = scope:teacher_story
 							exists = scope:teacher_story_tree
 						}
@@ -210,7 +210,7 @@ du_knight_tree_se = { # Add me once working
 								name = my_knight_tree_gui
 								target = scope:teacher
 							}
-							if = { # Remove error log
+							if = { # remove error log
 								limit = {
 									always = no
 									has_variable_list = my_knight_tree_gui
@@ -236,47 +236,95 @@ du_knight_tree_se = { # Add me once working
 			}
 		}
 	}
-	else_if = {
+	else_if = { # Requires Manual
 		limit = {
 			has_game_rule = kt_auto_off
 		}
 		if = {
-			limit = { scope:actor = { has_character_flag = knight_tree } }
-		
+			limit = { scope:teacher = { is_alive = yes } scope:student = { is_alive = yes } }
 			if = {
-				limit = { scope:student = { is_alive = yes } scope:teacher = { is_alive = yes } }
-			}
-			scope:teacher = {
-				if = { # If they were already someone's student and if KT memory exists
-					limit = { scope:teacher = { has_memory_type = kt_tracked_a_knight } }
+				limit = { # Requires memory or tracking flag
 					scope:student = {
-						set_variable = {
-							name = my_knight_tree
-							value = scope:teacher.var:my_knight_tree
+						any_memory = {
+							has_memory_type = kt_knighted
+							has_memory_type = kt_tracked_a_knight
+						}
+						OR = {
+							has_character_flag = knight_tree
 						}
 					}
-					if = { # If they already have their own students
+					scope:teacher = {
+						any_memory = {
+							has_memory_type = kt_knighted
+							has_memory_type = kt_tracked_a_knight
+						}
+						OR = {
+							has_character_flag = knight_tree
+						}
+					}
+				}
+				scope:teacher = {
+					if = {
 						limit = {
-							any_owned_story = {
-								story_type = story_cycle_teacher
+							has_variable = my_knight_tree
+						}
+						scope:student = {
+							set_variable = {
+								name = my_knight_tree
+								value = scope:teacher.var:my_knight_tree
 							}
 						}
-						random_owned_story = {
-							limit = { story_type = story_cycle_teacher }
-							add_to_variable_list = {
-								name = students
-								target = scope:student
+						if = { # if they already have their own students
+							limit = {
+								any_owned_story = {
+									story_type = story_cycle_teacher
+								}
+							}
+							random_owned_story = {
+								limit = { story_type = story_cycle_teacher }
+								add_to_variable_list = {
+									name = students
+									target = scope:student
+								}
+							}
+						}
+						else = { # if there were no students yet
+							create_story = {
+								type = story_cycle_teacher
+								save_temporary_scope_as = teacher_story
+							}
+							if = { # remove errors
+								limit = {
+									exists = scope:teacher_story
+								}
+								scope:teacher_story = {
+									add_to_variable_list = {
+										name = students
+										target = scope:student
+									}
+								}
+								var:my_knight_tree = {
+									add_to_variable_list = {
+										name = prune
+										target = scope:teacher_story
+									}
+								}
 							}
 						}
 					}
-					else = { # If there were no students yet
+					else = { # if there were no students and they themselves are not anyone's student
 						create_story = {
 							type = story_cycle_teacher
 							save_temporary_scope_as = teacher_story
 						}
-						if = { # Remove errors
-							limit = {
+						create_story = {
+							type = story_cycle_teacher_tree
+							save_temporary_scope_as = teacher_story_tree
+						}
+						if = {
+							limit = { # remove errors
 								exists = scope:teacher_story
+								exists = scope:teacher_story_tree
 							}
 							scope:teacher_story = {
 								add_to_variable_list = {
@@ -284,69 +332,41 @@ du_knight_tree_se = { # Add me once working
 									target = scope:student
 								}
 							}
-							var:my_knight_tree = {
+							scope:teacher_story_tree = {
+								set_variable = {
+									name = my_knight_tree_founder
+									value = scope:teacher
+								}
 								add_to_variable_list = {
 									name = prune
 									target = scope:teacher_story
 								}
-							}
-						}
-					}
-				}
-				else = { # If there were no students and they themselves are not anyone's student
-					create_story = {
-						type = story_cycle_teacher
-						save_temporary_scope_as = teacher_story
-					}
-					create_story = {
-						type = story_cycle_teacher_tree
-						save_temporary_scope_as = teacher_story_tree
-					}
-					if = {
-						limit = { # Remove errors
-							exists = scope:teacher_story
-							exists = scope:teacher_story_tree
-						}
-						scope:teacher_story = {
-							add_to_variable_list = {
-								name = students
-								target = scope:student
-							}
-						}
-						scope:teacher_story_tree = {
-							set_variable = {
-								name = my_knight_tree_founder
-								value = scope:teacher
-							}
-							add_to_variable_list = {
-								name = prune
-								target = scope:teacher_story
-							}
-							# Temp GUI
-							add_to_variable_list = {
-								name = my_knight_tree_gui
-								target = scope:teacher
-							}
-							if = { # Remove error log
-								limit = {
-									always = no
-									has_variable_list = my_knight_tree_gui
+								# Temp GUI
+								add_to_variable_list = {
+									name = my_knight_tree_gui
+									target = scope:teacher
+								}
+								if = { # remove error log
+									limit = {
+										always = no
+										has_variable_list = my_knight_tree_gui
+									}
 								}
 							}
-						}
-						set_variable = {
-							name = my_knight_tree
-							value = scope:teacher_story_tree
-						}
-						scope:student = {
 							set_variable = {
 								name = my_knight_tree
 								value = scope:teacher_story_tree
 							}
-						}
-						add_to_global_variable_list = {
-							name = global_teacher_trees
-							target = scope:teacher_story_tree
+							scope:student = {
+								set_variable = {
+									name = my_knight_tree
+									value = scope:teacher_story_tree
+								}
+							}
+							add_to_global_variable_list = {
+								name = global_teacher_trees
+								target = scope:teacher_story_tree
+							}
 						}
 					}
 				}
@@ -356,29 +376,80 @@ du_knight_tree_se = { # Add me once working
 }
 
 kt_express_knighthood = {
-	$RECIPIENT$ = {
-		save_temporary_scope_as = student
-		create_character_memory = {
-			type = kt_tracked_a_knight
-			participants = {
-				$ACTOR$
+	$RECIPIENT$ = { save_temporary_scope_as = teacher }
+ 	if
+
+	scope:teacher = {
+		create_story = {
+			type = story_cycle_teacher
+			save_temporary_scope_as = teacher_story
+		}
+		create_story = {
+			type = story_cycle_teacher_tree
+			save_temporary_scope_as = teacher_story_tree
+		}
+		if = {
+			limit = { # remove errors
+				exists = scope:teacher_story
+				exists = scope:teacher_story_tree
+			}
+			scope:teacher_story = {
+				add_to_variable_list = {
+					name = students
+					target = scope:student
+				}
+			}
+			scope:teacher_story_tree = {
+				set_variable = {
+					name = my_knight_tree_founder
+					value = scope:teacher
+				}
+				add_to_variable_list = {
+					name = prune
+					target = scope:teacher_story
+				}
+				# Temp GUI
+				add_to_variable_list = {
+					name = my_knight_tree_gui
+					target = scope:teacher
+				}
+				if = { # remove error log
+					limit = {
+						always = no
+						has_variable_list = my_knight_tree_gui
+					}
+				}
+			}
+			set_variable = {
+				name = my_knight_tree
+				value = scope:teacher_story_tree
+			}
+			scope:student = {
+				set_variable = {
+					name = my_knight_tree
+					value = scope:teacher_story_tree
+				}
+			}
+			add_to_global_variable_list = {
+				name = global_teacher_trees
+				target = scope:teacher_story_tree
 			}
 		}
-		add_character_flag = knight_tree
-		set_variable = {
-			name = my_knight_tree
-			value = scope:teacher.var:my_knight_tree
-		}
-		# set_variable = my_knight_tree
 	}
-	$ACTOR$ = {
-		save_temporary_scope_as = teacher
+	# $ACTOR$ = {
+		# save_temporary_scope_as = teacher
+	# }
+	# $RECIPIENT$ = {
+		# save_temporary_scope_as = student
 		# create_character_memory = {
-		# 	type = kt_tracked_a_knight
-		# 	participants = {
-		# 		$RECIPIENT$
-		# 	}
+			# type = kt_tracked_a_knight
+			# participants = {
+				# $ACTOR$
+				# $RECIPIENT$
+			# }
 		# }
-	}
-	du_knight_tree_se = { ACTOR = teacher RECIPIENT = student}
+		# add_character_flag = knight_tree
+		# set_variable = my_knight_tree
+	# }
+	# du_knight_tree_se = { ACTOR = scope:actor RECIPIENT = scope:student }
 }

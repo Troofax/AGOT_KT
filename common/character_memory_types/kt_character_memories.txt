@@ -24,3 +24,33 @@ kt_tracked_a_knight = {
 		years = 250
 	}
 }
+
+kt_knighted = {
+	categories = { positive martial }
+	icon = "battle.dds"
+
+	description = {
+		desc = kt_knighted_desc
+	}
+
+	second_perspective_description = {
+		desc = kt_knighted_second_perspective_desc
+	}
+
+	third_perspective_description = {
+		desc = kt_knighted_third_perspective_desc
+	}
+
+	participants = {
+		$ACTOR$
+		$RECIPIENT$
+		$KNIGHT_MAKER$
+		$KNIGHT_TO_BE$
+		$HOST$
+		$WINNER$
+	}
+	
+	duration = {
+		years = 250
+	}
+}

@@ -1,0 +1,7 @@
+{
+    "editor.defaultFormatter": "tboby.cwtools-vscode",
+    "[ck3]": {
+        "editor.suggest.insertMode": "insert"
+    },
+    "editor.suggest.preview": true
+}

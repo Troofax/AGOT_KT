@@ -61,6 +61,22 @@
 
 agot_add_become_a_knight_prestige_effect = {
 	du_knight_tree_se = { ACTOR = $KNIGHT_MAKER$ RECIPIENT = $KNIGHT_TO_BE$ } # Added me
+	$KNIGHT_MAKER$ = { # Add me?
+		create_character_memory = {
+			type = kt_knighted
+			participants = {
+				$KNIGHT_TO_BE$
+			}
+		}
+	}
+	$KNIGHT_TO_BE$ = { # Add me?
+		create_character_memory = {
+			type = kt_knighted
+			participants = {
+				$KNIGHT_MAKER$
+			}
+		}
+	}
 	add_prestige = {
 		#value = 25 # AGOT REVIEW: See how the higher values feel
 		value = 50
@@ -553,12 +569,24 @@ agot_tournament_reward_knighthood_prize = {
 				knight = $HOST$
 			}
 		}
+		create_character_memory = { # Add me?
+			type = kt_knighted
+			participants = {
+				ACTOR = $HOST$
+			}
+		}
 	}
 	$HOST$ = {
 		create_character_memory = {
 			type = agot_knighted_someone_as_tourney_prize
 			participants = {
 				squire = $WINNER$
+			}
+		}
+		create_character_memory = { # Add me?
+			type = kt_knighted
+			participants = {
+				RECIPIENT = $WINNER$
 			}
 		}
 	}

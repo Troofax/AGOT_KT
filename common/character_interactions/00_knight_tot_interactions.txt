@@ -146,8 +146,64 @@ test_set_tracked_knight_interaction = { # Add me when ready
 	on_accept = {
 		scope:recipient = {
 			add_character_flag = knight_tree
+			create_character_memory = {
+				type = kt_tracked_a_knight
+				participants = {
+					$ACTOR$
+					$RECIPIENT$
+				}
+			}
 			# set_variable = my_knight_tree
 		}
+		# du_knight_tree_se = { ACTOR = scope:actor RECIPIENT = scope:recipient }
 		kt_express_knighthood = { ACTOR = scope:actor RECIPIENT = scope:recipient }
+	}
+}
+
+test_unset_tracked_knight_interaction = {
+	interface_priority = 200
+	common_interaction = yes
+	category = interaction_category_friendly
+	icon = icon_dynasty
+	desc = test_unset_tracked_knight_interaction
+
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		debug_only = yes
+		has_game_rule = kt_auto_off
+		scope:actor = {
+			is_ai = no
+			NOT = { this = scope:recipient }
+			scope:recipient = {
+				OR = {
+					has_trait = knight
+					has_trait_xp = {
+						trait = squire
+						track = knight
+						value >=100
+					}
+				}
+				NOR = {
+					has_character_flag = knight_tree
+					has_variable = my_knight_tree
+				}
+			}
+		}
+	}
+
+	on_accept = {
+		scope:recipient = {
+			remove_character_flag = knight_tree
+			remove_character_memory = {
+				type = kt_tracked_a_knight
+				participants = {
+					$ACTOR$
+					$RECIPIENT$
+				}
+			}
+		}
 	}
 }
