@@ -389,7 +389,7 @@ types DynastyTreeView
 								size = { 120 120 } # Resized COA for Bastards
 								parentanchor = vcenter|hcenter
 
-								coa_dynasty_huge = {
+								coa_dynasty_big = {
 									parentanchor = hcenter
 									datacontext = "[Character.GetDynasty]"
 								}
