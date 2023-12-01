@@ -60,7 +60,7 @@
 }
 
 agot_add_become_a_knight_prestige_effect = {
-	du_knight_tree_se = { ACTOR = $KNIGHT_MAKER$ RECIPIENT = $KNIGHT_TO_BE$ }
+	du_knight_tree_se = { ACTOR = $HOST$ RECIPIENT = $WINNER$ }
 	add_prestige = {
 		#value = 25 # AGOT REVIEW: See how the higher values feel
 		value = 50
@@ -316,8 +316,8 @@ agot_offer_squire_interaction_effect = {
 			modifier = became_my_squire_opinion
 			opinion = 25
 		}
-	}	
-	
+	}
+
 	scope:squire = {
 		add_opinion = {
 			target = scope:knight
@@ -535,6 +535,70 @@ agot_set_squire_effect = {
 				}
 			}
 			visit_court_of = $KNIGHT$.host
+		}
+	}
+}
+
+agot_strip_knighthood_as_punishment_effect = {
+	$STRIPPER$ = {
+		create_character_memory = {
+			type = agot_stripped_knighthood
+			participants = {
+				knight = scope:recipient
+			}
+		}
+	}
+	$KNIGHT$ = {
+		# Remove knight trait
+		if = {
+			limit = {
+				has_trait = knight
+			}
+			remove_trait = knight
+		} else_if = {
+			limit = {
+				has_trait_xp = {
+					trait = squire
+					track = knight
+					value >= 100
+				}
+			}
+			remove_trait = squire
+		}
+		# Piety Penalty
+		if = {
+			limit = {
+				faith = {
+					has_doctrine = tenet_knighthood
+				}
+			}
+			add_piety = major_piety_loss
+		}
+		# Remove Squire Relations
+		if = {
+			limit = {
+				any_relation = {
+					type = agot_squire
+				}
+			}
+			every_relation = {
+				type = agot_squire
+				remove_relation_agot_knight = $KNIGHT$
+				add_character_flag = agot_knighthood_was_removed_as_a_squire_flag
+			}
+		}
+		add_prestige = major_prestige_loss
+		create_character_memory = {
+			type = agot_was_stripped_of_knighthood
+			participants = {
+				stripper = scope:actor
+			}
+		}
+		add_character_flag = cannot_be_knighted
+		add_opinion = {
+			target = $STRIPPER$
+			modifier = stripped_my_knighthood
+			opinion = -50
 		}
 	}
 }
