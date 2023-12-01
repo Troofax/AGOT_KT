@@ -107,29 +107,29 @@ window = {
 			}
 
 			widget = { # Knight Tree Button Insert
-			parentanchor = vcenter|right
-			visible = "[GetScriptedGui('check_has_trait_knight').IsShown( GuiScope.SetRoot( Character.MakeScope ).End)]"
-			size = { 44 44 }
-			position = { 0 20 }
-
-			button_normal = {
-				size = { 41 41 }
-
-				icon = {
-					texture = "gfx/interface/maintab_courtview_bg.dds"
-					size = { 100% 100% }
-					color = { 0.01 0.01 0.01 1 }
-				}
-
-				button_icon = {
-					texture = "gfx/interface/knight_kt_icon.dds"
-					onclick = "[GetVariableSystem.Toggle( 'hello_knight_tree' )]"
-					onclick = "[GetScriptedGui('open_knight_tree').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('opened_character',Character.MakeScope).End)]"
-					size = { 25 25 }
-					parentanchor = center
+				parentanchor = vcenter|right
+				visible = "[GetScriptedGui('check_has_trait_knight').IsShown( GuiScope.SetRoot( Character.MakeScope ).End)]"
+				size = { 44 44 }
+				position = { 0 20 }
+			
+				button_normal = {
+					size = { 41 41 }
+				
+					icon = {
+						texture = "gfx/interface/maintab_courtview_bg.dds"
+						size = { 100% 100% }
+						color = { 0.01 0.01 0.01 1 }
+					}
+				
+					button_icon = {
+						texture = "gfx/interface/knight_kt_icon.dds"
+						onclick = "[GetVariableSystem.Toggle( 'hello_knight_tree' )]"
+						onclick = "[GetScriptedGui('open_knight_tree').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('opened_character',Character.MakeScope).End)]"
+						size = { 25 25 }
+						parentanchor = center
+					}
 				}
 			}
-		}
 
 			### Primary Spouse
 			container_secondary = {
