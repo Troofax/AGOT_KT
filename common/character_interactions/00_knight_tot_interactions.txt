@@ -82,39 +82,13 @@ set_knight_heir_interaction = {
 	# }
 # }
 
-
-# unset_tracked_knight_interaction = {
-	# category = interaction_category_friendly
-	# common_interaction = yes
-	# interface_priority = 200
-	# icon = icon_dynasty
-	# desc = set_tracked_knight_interaction_desc
-
-	# auto_accept = yes
-	# use_diplomatic_range = no
-	# ignores_pending_interaction_block = yes
-
-	# is_shown = {
-		# has_game_rule = kt_auto_off
-		# scope:recipient = { has_character_flag = knight_tree }
-		# scope:actor = { is_ai = no }
-	# }
-	# on_accept = {
-		# end_story = {
-			# type = story_cycle_teacher_tree
-			# save_temporary_scope_as = teacher_story_tree
-		# }
-		# scope:recipient = { add_character_flag = knight_tree }
-		# }
-	# }
-# }
-
 test_set_tracked_knight_interaction = { # Add me when ready
 	interface_priority = 200
 	common_interaction = yes
 	category = interaction_category_friendly
 	icon = icon_dynasty
 	desc = test_set_tracked_knight_interaction_desc
+	prompt = test_set_tracked_knight_interaction_prompt
 
 	auto_accept = yes
 	use_diplomatic_range = no
@@ -136,74 +110,198 @@ test_set_tracked_knight_interaction = { # Add me when ready
 					}
 				}
 				NOR = {
-					has_character_flag = knight_tree
+					has_variable = kt_knighted
+					has_variable = kt_tracked
+					# any_memory = {
+						# has_character_memory = kt_tracked_a_knight
+						# has_character_memory = kt_knighted
+					# }
 					has_variable = my_knight_tree
 				}
 			}
 		}
 	}
 
+	redirect = {
+		# scope:recipient = { save_scope_as = student }
+		if = {
+			limit = { exists = scope:recipient.liege }
+			scope:recipient.liege = { save_temporary_scope_as = actor }
+		}
+	}
+
 	on_accept = {
 		scope:recipient = {
-			add_character_flag = knight_tree
+			set_variable = kt_tracked
 			create_character_memory = {
-				type = kt_tracked_a_knight
-				participants = {
-					$ACTOR$
-					$RECIPIENT$
+				 type = kt_tracked_a_knight
+				 participants = { $RECIPIENT$ }
 				}
-			}
+		}
+		# scope:recipient = {
+			# add_character_flag = knight_tree
+			# create_character_memory = { type = kt_tracked_a_knight }
 			# set_variable = my_knight_tree
-		}
-		# du_knight_tree_se = { ACTOR = scope:actor RECIPIENT = scope:recipient }
-		kt_express_knighthood = { ACTOR = scope:actor RECIPIENT = scope:recipient }
+		# }
+		# du_knight_tree_se = { ACTOR = scope:teacher RECIPIENT = scope:student }
+		scope:recipient = { kt_express_effect = yes }
+		####kt_express_knighthood = { ACTOR = scope:recipient.liege RECIPIENT = scope:recipient }
 	}
 }
 
-test_unset_tracked_knight_interaction = {
-	interface_priority = 200
-	common_interaction = yes
-	category = interaction_category_friendly
-	icon = icon_dynasty
-	desc = test_unset_tracked_knight_interaction
+# test_unset_tracked_knight_interaction = {
+	# interface_priority = 200
+	# common_interaction = yes
+	# category = interaction_category_friendly
+	# icon = icon_dynasty
+	# desc = test_unset_tracked_knight_interaction
 
-	auto_accept = yes
-	use_diplomatic_range = no
-	ignores_pending_interaction_block = yes
+	# auto_accept = yes
+	# use_diplomatic_range = no
+	# ignores_pending_interaction_block = yes
 
-	is_shown = {
-		debug_only = yes
-		has_game_rule = kt_auto_off
-		scope:actor = {
-			is_ai = no
-			NOT = { this = scope:recipient }
-			scope:recipient = {
-				OR = {
-					has_trait = knight
-					has_trait_xp = {
-						trait = squire
-						track = knight
-						value >=100
-					}
-				}
-				NOR = {
-					has_character_flag = knight_tree
-					has_variable = my_knight_tree
-				}
-			}
-		}
-	}
+	# is_shown = {
+		# debug_only = yes
+		# has_game_rule = kt_auto_off
+		# scope:actor = {
+			# is_ai = no
+			# NOT = { this = scope:recipient }
+			# scope:recipient = {
+				# OR = {
+					# any_memory = {
+						# has_character_memory = kt_tracked_a_knight
+						# has_character_memory = kt_knighted
+					# }
+					# has_variable = my_knight_tree
+				# }
+			# }
+		# }
+	# }
 
-	on_accept = {
-		scope:recipient = {
-			remove_character_flag = knight_tree
-			remove_character_memory = {
-				type = kt_tracked_a_knight
-				participants = {
-					$ACTOR$
-					$RECIPIENT$
-				}
-			}
-		}
-	}
-}
+	# on_accept = {
+		# scope:recipient = {
+			# remove_character_flag = knight_tree
+			# remove_character_memory = {
+				# type = kt_tracked_a_knight
+				# participants = {
+					# $ACTOR$
+					# $RECIPIENT$
+				# }
+			# }
+			# remove_character_memory = {
+				# type = kt_knighted
+				# participants = {
+					# $ACTOR$
+					# $RECIPIENT$
+				# }
+			# }
+		# }
+	# }
+# }
+
+# test_open_knight_tree_interaction = {
+	# interface_priority = 200
+	# common_interaction = yes
+	# category = interaction_category_friendly
+	# icon = icon_dynasty
+	# desc = test_open_knight_tree_interaction_desc
+	# prompt = test_open_knight_tree_interaction_prompt
+
+	# auto_accept = yes
+	# use_diplomatic_range = no
+	# ignores_pending_interaction_block = yes
+
+	# is_shown = {
+		# debug_only = yes
+		# scope:actor = {
+			# is_ai = no
+			# NOT = { this = scope:recipient}
+		# }
+		# scope:recipient = {
+			# if = {
+				# limit = {
+					# has_variable = my_knight_tree
+				# }
+			# }
+		# }
+	# }
+
+	# on_accept = {
+		# scope:recipient = { save_temporary_scope_as = opened_character }		
+		# if = { # Applies variables to use for the tree
+			# limit = {
+				# any_in_global_list = {
+					# variable = global_teacher_trees
+					# OR = {
+						# var:my_knight_tree_founder = scope:opened_character
+						# any_in_list = {
+							# variable = prune
+							# any_in_list = {
+								# variable = students
+								# this = scope:opened_character
+							# }
+						# }
+					# }
+				# }
+			# }
+			# random_in_global_list = {
+				# variable = global_teacher_trees
+				# limit = {
+					# OR = {
+						# var:my_knight_tree_founder = scope:opened_character
+						# any_in_list = {
+							# variable = prune
+							# any_in_list = {
+								# variable = students
+								# this = scope:opened_character
+							# }
+						# }
+					# }
+				# }
+				# root = {
+					# set_variable = {
+						# name = opened_knight_tree
+						# value = prev
+					# }
+				# }
+			# }
+		# }
+		# if = {
+			# limit = {
+				# has_variable = opened_knight_tree
+			# }
+			# var:opened_knight_tree = {
+				# ordered_in_list = {
+					# variable = prune
+					# position = 0
+					# save_scope_as = zero_teacher_tree
+				# }
+			# }
+			# set_variable = {
+				# name = zero_teacher_tree
+				# value = scope:zero_teacher_tree
+			# }
+			# set_variable = {
+				# name = tree_member_amount
+				# value = tree_members_amount
+			# }
+			# set_variable = {
+				# name = tree_member_amount_alive
+				# value = tree_members_amount_alive
+			# }
+		# }
+		# if = {
+			# limit = {
+				# debug_only = yes
+			# }
+			# set_variable = {
+				# name = story_cycles_trees
+				# value = story_cycles_tree_amount
+			# }
+			# set_variable = {
+				# name = story_cycles_teachers
+				# value = story_cycles_teachers_amount
+			# }
+		# }
+	# }
+# }

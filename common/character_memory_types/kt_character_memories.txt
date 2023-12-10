@@ -1,7 +1,8 @@
 # Remembering who you tracked
 kt_tracked_a_knight = {
-	categories = { positive martial }
-	icon = "battle.dds"
+	categories = { positive relationships }
+	icon = "family.dds"
+	# icon = "knight_kt_icon.dds"
 
 	description = {
 		desc = kt_tracked_a_knight_desc
@@ -16,8 +17,8 @@ kt_tracked_a_knight = {
 	}
 
 	participants = {
-        # $ACTOR$
-        $RECIPIENT$
+        # ACTOR
+        RECIPIENT
     }
 
 	duration = {
@@ -26,8 +27,8 @@ kt_tracked_a_knight = {
 }
 
 kt_knighted = {
-	categories = { positive martial }
-	icon = "battle.dds"
+	categories = { positive relationships }
+	icon = "family.dds"
 
 	description = {
 		desc = kt_knighted_desc
@@ -42,12 +43,8 @@ kt_knighted = {
 	}
 
 	participants = {
-		$ACTOR$
-		$RECIPIENT$
-		$KNIGHT_MAKER$
-		$KNIGHT_TO_BE$
-		$HOST$
-		$WINNER$
+		teacher
+		student
 	}
 	
 	duration = {

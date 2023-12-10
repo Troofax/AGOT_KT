@@ -108,7 +108,7 @@ window = {
 
 			widget = { # Knight Tree Button Insert
 				parentanchor = vcenter|right
-				visible = "[GetScriptedGui('check_has_trait_knight').IsShown( GuiScope.SetRoot( Character.MakeScope ).End)]"
+				visible = "[GetScriptedGui('check_has_trait_knight').IsShown(GuiScope.SetRoot(Character.MakeScope).End)]"
 				size = { 44 44 }
 				position = { 0 20 }
 
@@ -120,11 +120,11 @@ window = {
 						size = { 100% 100% }
 						color = { 0.01 0.01 0.01 1 }
 					}
-
+					
 					button_icon = {
 						texture = "gfx/interface/knight_kt_icon.dds"
-						onclick = "[GetVariableSystem.Toggle( 'hello_knight_tree' )]"
-						onclick = "[GetScriptedGui('open_knight_tree').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('opened_character',Character.MakeScope).End)]"
+						onclick = "[GetVariableSystem.Toggle('hello_knight_tree')]"
+						onclick = "[GetScriptedGui('open_knight_tree').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('opened_character', Character.MakeScope).End)]"
 						size = { 25 25 }
 						parentanchor = center
 					}
@@ -180,11 +180,11 @@ window = {
 				layoutpolicy_horizontal = expanding
 				expand = {}
 
-			### Jailor / Imprisoner / Imprisoned by
+				### Jailor / Imprisoner / Imprisoned by
 				vbox = {
-				name = "imprisoned_by"
-				datacontext = "[CharacterWindow.GetCharacter.GetImprisonedBy]"
-				visible = "[Character.IsValid]"
+					name = "imprisoned_by"
+					datacontext = "[CharacterWindow.GetCharacter.GetImprisonedBy]"
+					visible = "[Character.IsValid]"
 
 					margin_right = 20
 					layoutpolicy_vertical = expanding
@@ -226,108 +226,108 @@ window = {
 						text = "[home_court|E]"
 					}
 					expand = {}
-			}
+				}
 
-			### Liege
-			vbox = {
-				name = "liege"
-				datacontext = "[CharacterWindow.GetCharacter.GetLiegeEvenWhenDead]"
-				visible = "[CharacterWindow.HasLiegeEvenWhenDead]"
-				allow_outside = yes
+				### Liege
+				vbox = {
+					name = "liege"
+					datacontext = "[CharacterWindow.GetCharacter.GetLiegeEvenWhenDead]"
+					visible = "[CharacterWindow.HasLiegeEvenWhenDead]"
+					allow_outside = yes
 
-				margin_right = 20
-				layoutpolicy_vertical = expanding
-				using = Animation_Character_Window_Refresh
+					margin_right = 20
+					layoutpolicy_vertical = expanding
+					using = Animation_Character_Window_Refresh
 
-				portrait_head_small = {
-					blockoverride "portrait_transformation"
-					{
-						portrait_scale = { -1 1 }
-						portrait_offset = { 1 0 }
-					}
-
-					blockoverride "coa" {
-						coa_realm_tiny = {
-							visible = "[And(CharacterWindow.GetCharacter.IsAlive, CharacterWindow.HasLiegeTitleEvenWhenDead)]"
-							parentanchor = bottom|left
-							position = { 3 -2 }
-							scale = 0.85
+					portrait_head_small = {
+						blockoverride "portrait_transformation"
+						{
+							portrait_scale = { -1 1 }
+							portrait_offset = { 1 0 }
 						}
 
-						coa_title_tiny = {
-							visible = "[And(Not(CharacterWindow.GetCharacter.IsAlive), CharacterWindow.HasLiegeTitleEvenWhenDead)]"
-							datacontext = "[CharacterWindow.GetCharacter.GetLiegeTitleEvenWhenDead]"
-							parentanchor = bottom|left
-							position = { 3 -2 }
-							scale = 0.85
+						blockoverride "coa" {
+							coa_realm_tiny = {
+								visible = "[And(CharacterWindow.GetCharacter.IsAlive, CharacterWindow.HasLiegeTitleEvenWhenDead)]"
+								parentanchor = bottom|left
+								position = { 3 -2 }
+								scale = 0.85
+							}
+
+							coa_title_tiny = {
+								visible = "[And(Not(CharacterWindow.GetCharacter.IsAlive), CharacterWindow.HasLiegeTitleEvenWhenDead)]"
+								datacontext = "[CharacterWindow.GetCharacter.GetLiegeTitleEvenWhenDead]"
+								parentanchor = bottom|left
+								position = { 3 -2 }
+								scale = 0.85
+							}
 						}
 					}
-				}
 
-				hbox = {
-					spacing = 3
+					hbox = {
+						spacing = 3
 
-					text_label_center = {
+						text_label_center = {
+							datacontext = "[CharacterWindow.GetCharacter]"
+							visible = "[Character.IsHostage]"
+							text = "WARDEN_OF"
+						}
+
+						text_label_center = {
+							datacontext = "[CharacterWindow.GetCharacter]"
+							visible = "[Not( Character.IsHostage )]"
+							text = "[liege|E]"
+						}
+
+						icon = {
+							datacontext = "[CharacterWindow.GetCharacter]"
+							name = "non_dejure_liege"
+							visible = "[Not( Character.GetVassalContract.IsRightfulLiege )]"
+							size = { 30 30 }
+							texture = "gfx/interface/icons/levy_tax_reduction.dds"
+
+							using = tooltip_ws
+							tooltip = "MRW_TT_NOT_RIGHTFUL_LIEGE"
+						}
+					}
+
+					portrait_opinion = {
+						name = "liege_opinion"
+
 						datacontext = "[CharacterWindow.GetCharacter]"
-						visible = "[Character.IsHostage]"
-						text = "WARDEN_OF"
-					}
+						visible = "[And( Character.GetLiege.IsValid, And( Character.IsAlive, Not(Character.IsLocalPlayer ) ) )]"
 
-					text_label_center = {
-						datacontext = "[CharacterWindow.GetCharacter]"
-						visible = "[Not( Character.IsHostage )]"
-						text = "[liege|E]"
-					}
+						blockoverride "dread_logic" {
+							visible = "[Character.ShouldShowDreadEffectIconFor( Character.GetLiege )]"
+							frame = "[Character.GetDreadEffectIconFrameFor( Character.GetLiege )]"
+							tooltip = "[Character.GetDreadEffectTooltipFor( Character.GetLiege )]"
+						}
 
-					icon = {
-						datacontext = "[CharacterWindow.GetCharacter]"
-						name = "non_dejure_liege"
-						visible = "[Not( Character.GetVassalContract.IsRightfulLiege )]"
-						size = { 30 30 }
-						texture = "gfx/interface/icons/levy_tax_reduction.dds"
+						blockoverride "opinion_text"
+						{
+							text = "[Character.GetOpinionOf( Character.GetLiege )|=]"
+							fonttintcolor = "[Character.GetOpinionOfTint( CharacterWindow.GetCharacter.GetLiege )]"
+						}
 
-						using = tooltip_ws
-						tooltip = "MRW_TT_NOT_RIGHTFUL_LIEGE"
+						blockoverride "ott_heading_text"
+						{
+							text = "[Character.GetOpinionHeadingText( CharacterWindow.GetCharacter.GetLiege )]"
+						}
+
+						blockoverride "ott_opinion_value_text"
+						{
+							text = "[Character.GetOpinionOf( Character.GetLiege )|=]"
+							fonttintcolor = "[Character.GetOpinionOfTint( CharacterWindow.GetCharacter.GetLiege )]"
+						}
+
+						blockoverride "ott_opinion_breakdown_text"
+						{
+							text = "[Character.GetOpinionBreakdownText( CharacterWindow.GetCharacter.GetLiege )]"
+						}
 					}
+					expand = {}
 				}
-
-				portrait_opinion = {
-					name = "liege_opinion"
-
-					datacontext = "[CharacterWindow.GetCharacter]"
-					visible = "[And( Character.GetLiege.IsValid, And( Character.IsAlive, Not(Character.IsLocalPlayer ) ) )]"
-
-					blockoverride "dread_logic" {
-						visible = "[Character.ShouldShowDreadEffectIconFor( Character.GetLiege )]"
-						frame = "[Character.GetDreadEffectIconFrameFor( Character.GetLiege )]"
-						tooltip = "[Character.GetDreadEffectTooltipFor( Character.GetLiege )]"
-					}
-
-					blockoverride "opinion_text"
-					{
-						text = "[Character.GetOpinionOf( Character.GetLiege )|=]"
-						fonttintcolor = "[Character.GetOpinionOfTint( CharacterWindow.GetCharacter.GetLiege )]"
-					}
-
-					blockoverride "ott_heading_text"
-					{
-						text = "[Character.GetOpinionHeadingText( CharacterWindow.GetCharacter.GetLiege )]"
-					}
-
-					blockoverride "ott_opinion_value_text"
-					{
-						text = "[Character.GetOpinionOf( Character.GetLiege )|=]"
-						fonttintcolor = "[Character.GetOpinionOfTint( CharacterWindow.GetCharacter.GetLiege )]"
-					}
-
-					blockoverride "ott_opinion_breakdown_text"
-					{
-						text = "[Character.GetOpinionBreakdownText( CharacterWindow.GetCharacter.GetLiege )]"
-					}
-				}
-				expand = {}
 			}
-		}
 
 			### Host
 			container = {

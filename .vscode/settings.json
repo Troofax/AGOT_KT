@@ -1,7 +1,9 @@
 {
     "editor.defaultFormatter": "tboby.cwtools-vscode",
     "[ck3]": {
-        "editor.suggest.insertMode": "insert"
+        "editor.suggest.insertMode": "insert",
+        "editor.defaultFormatter": "tboby.cwtools-vscode"
     },
-    "editor.suggest.preview": true
+    "editor.suggest.preview": true,
+    "cwtools.rules_folder": "C:\\Users\\troof\\source\\repos\\cwtools-ck3-config"
 }

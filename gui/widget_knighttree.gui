@@ -208,21 +208,20 @@ types DynastyTreeView
 						raw_text = "[Scope.GetCharacter.GetBirthDate.GetYear]-[Select_CString(Scope.GetCharacter.IsAlive, '?', Localize('death_date_kt') )]"
 					}
 
-					#coa_dynasty_small = {
-					#	parentanchor = hcenter
-					#	datacontext = "[DynastyTreeItem.GetCharacter.GetDynasty]"
-					#	visible = "[DynastyTreeItem.IsFromOtherDynasty]"
-					#
-					#	blockoverride "OnClickDefault" {
-					#		onclick = "[OpenDynastyTreeViewFromCharacter(DynastyTreeItem.GetCharacter.GetID)]"
-					#	}
-					#}
-
-					#coa_house_small = {
-					#	parentanchor = hcenter
-					#	visible = "[DynastyTreeItem.IsCadetBranchFounder]"
-					#	datacontext = "[DynastyTreeItem.GetCharacter.GetHouse]"
-					#}
+					coa_dynasty_small = {
+						parentanchor = hcenter
+						datacontext = "[Character.GetHouse]"
+						visible = "[Character.IsLowborn]"
+					
+						blockoverride "OnClickDefault" {
+							onclick = "[OpenDynastyTreeViewFromCharacter(DynastyTreeItem.GetCharacter.GetID)]"
+						}
+					}
+					# coa_house_small = {
+						# parentanchor = hcenter
+						# visible = "[DynastyTreeItem.IsCadetBranchFounder]"
+						# datacontext = "[DynastyTreeItem.GetCharacter.GetHouse]"
+					# }
 
 					button = {
 						name = "show_hide"
@@ -266,7 +265,7 @@ types DynastyTreeView
 						color = { 0.86 0.87 0.87 1 }
 						#spriteborder = { 1 1 }
 						
-					}#using = Line_DynastyTree
+					} # using = Line_DynastyTree
 				}
 
 				container = { # Student Recursion
@@ -390,10 +389,10 @@ types DynastyTreeView
 							# }
 
 							widget = {
-								size = { 120 120 }
+								size = { 120 120 } # Added me
 								parentanchor = vcenter|hcenter
 
-								coa_house_big = {
+								coa_house_big = { # Added me
 									parentanchor = hcenter
 									datacontext = "[Character.GetDynasty]"
 								}
@@ -532,7 +531,7 @@ types DynastyTreeView
 				#	color = { 0.86 0.87 0.87 1 }
 				#	spriteborder = { 1 1 }
 				#	
-				#}#using = Line_DynastyTree
+				# } # using = Line_DynastyTree
 				widget = {
 					parentanchor = hcenter
 
@@ -553,7 +552,7 @@ types DynastyTreeView
 						color = { 0.86 0.87 0.87 1 }
 						#spriteborder = { 1 1 }
 						
-					}#using = Line_DynastyTree
+					} # using = Line_DynastyTree
 				}
 
 				container = { # Student Recursion
