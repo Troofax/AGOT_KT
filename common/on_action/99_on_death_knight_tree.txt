@@ -1,0 +1,137 @@
+﻿#Triggered by code
+
+on_death = {
+	events = {}
+	on_actions = {
+		knight_tree_on_death
+	}
+}
+
+knight_tree_on_death = {
+	trigger = {
+		root = {
+			any_owned_story = {
+				OR = {
+					story_type = story_cycle_teacher
+					story_type = story_cycle_teacher_tree
+				}
+			}
+		}
+	}
+
+	effect = {
+		if = {
+			limit = {
+				any_owned_story = {
+					story_type = story_cycle_teacher
+				}
+			}
+			create_title_and_vassal_change = {
+				type = created
+				save_scope_as = change
+			}
+
+			random_owned_story = {
+				limit = {
+					story_type = story_cycle_teacher
+				}
+				save_scope_as = story_cycle_teacher_removal
+			}
+
+			scope:story_cycle_tree_removal = {
+				if = {
+					limit = {
+						OR = {
+							story_owner = {
+								exists = var:my_knight_tree
+							}
+							story_owner = {
+								is_alive = no
+								has_variable = prune
+							}
+						}
+					}
+				}
+				var:my_knight_tree = {
+					every_in_list = {
+						variable = prune
+						end_story = yes
+					}
+					remove_list_global_variable = {
+						name = global_teacher_trees
+						target = this
+					}
+					change_global_variable = {
+						name = sc_trees_destroyed
+						add = 1
+					}
+					end_story = yes
+					# remove_county_modifier = agot_deserted_province
+					# change_title_holder = {
+						# holder = prev.var:agot_walker_taken_title_from
+						# change = scope:removal
+					# }
+				}
+			}
+
+			resolve_title_and_vassal_change = scope:removal
+		}
+
+		if = {
+			limit = {
+				any_owned_story = {
+					story_type = story_cycle_teacher_tree
+				}
+			}
+			create_title_and_vassal_change = {
+				type = created
+				save_scope_as = change
+			}
+
+			random_owned_story = {
+				limit = {
+					story_type = story_cycle_teacher_tree
+				}
+				save_scope_as = story_cycle_teacher_tree_removal
+			}
+
+			scope:story_cycle_teacher_tree_removal = {
+				if = {
+					limit = {
+						OR = {
+							story_owner = {
+								exists = var:my_knight_tree
+							}
+							story_owner = {
+								is_alive = no
+								has_variable = prune
+							}
+						}
+					}
+				}
+				var:my_knight_tree = {
+					every_in_list = {
+						variable = prune
+						end_story = yes
+					}
+					remove_list_global_variable = {
+						name = global_teacher_trees
+						target = this
+					}
+					change_global_variable = {
+						name = sc_trees_destroyed
+						add = 1
+					}
+					end_story = yes
+					# remove_county_modifier = agot_deserted_province
+					# change_title_holder = {
+						# holder = prev.var:agot_walker_taken_title_from
+						# change = scope:removal
+					# }
+				}
+			}
+
+			resolve_title_and_vassal_change = scope:removal
+		}
+	}
+}

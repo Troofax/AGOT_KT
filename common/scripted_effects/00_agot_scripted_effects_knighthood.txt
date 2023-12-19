@@ -8,7 +8,8 @@
 			track = knight
 			value = 100
 		}
-	} else_if = {
+	}
+	else_if = {
 		limit = {
 			NOT = {
 				has_trait = squire
@@ -44,11 +45,12 @@
 		}
 	}
 
-	# Sword of the Morning
+	#SOTM
 	if = {
 		limit = {
 			exists = dynasty
 			dynasty = dynasty:dynn_Dayne
+			NOT = { this = dynasty.dynast }
 		}
 		dynasty.dynast = {
 			trigger_event = {
@@ -60,30 +62,7 @@
 }
 
 agot_add_become_a_knight_prestige_effect = {
-	if = {
-		limit = {
-			has_game_rule = kt_auto_on
-		}
-		du_knight_tree_se = { ACTOR = $KNIGHT_MAKER$ RECIPIENT = $KNIGHT_TO_BE$ }
-	}
-	if = {
-		limit = {
-			has_game_rule = kt_auto_off
-		}
-		if = {
-			limit = {
-				scope:actor = {
-					OR = {
-						has_character_flag = kt_knighted
-						has_character_flag = kt_tracked
-					}
-				}
-			}
-			scope:recipient = { set_variable = kt_knighted }
-			du_knight_tree_se = { ACTOR = $KNIGHT_MAKER$ RECIPIENT = $KNIGHT_TO_BE$ }
-		}
-	}
-	# du_knight_tree_se = { ACTOR = $KNIGHT_MAKER$ RECIPIENT = $KNIGHT_TO_BE$ } # Added me
+	du_knight_tree_se = { ACTOR = $KNIGHT_MAKER$ RECIPIENT = $KNIGHT_TO_BE$ }
 	add_prestige = {
 		#value = 25 # AGOT REVIEW: See how the higher values feel
 		value = 50
@@ -218,8 +197,8 @@ agot_add_become_a_knight_prestige_effect = {
 			add = 5 #Knighting a lord will be prestigious to the knight maker, but not very
 		}
 	}
-}
 
+}
 
 agot_offer_squire_interaction_effect = {
 	scope:knight = {
@@ -339,8 +318,8 @@ agot_offer_squire_interaction_effect = {
 			modifier = became_my_squire_opinion
 			opinion = 25
 		}
-	}	
-	
+	}
+
 	scope:squire = {
 		add_opinion = {
 			target = scope:knight
@@ -562,38 +541,76 @@ agot_set_squire_effect = {
 	}
 }
 
+agot_strip_knighthood_as_punishment_effect = {
+	$STRIPPER$ = {
+		create_character_memory = {
+			type = agot_stripped_knighthood
+			participants = {
+				knight = scope:recipient
+			}
+		}
+	}
+	$KNIGHT$ = {
+		# Remove knight trait
+		if = {
+			limit = {
+				has_trait = knight
+			}
+			remove_trait = knight
+		} else_if = {
+			limit = {
+				has_trait_xp = {
+					trait = squire
+					track = knight
+					value >= 100
+				}
+			}
+			remove_trait = squire
+		}
+		# Piety Penalty
+		if = {
+			limit = {
+				faith = {
+					has_doctrine = tenet_knighthood
+				}
+			}
+			add_piety = major_piety_loss
+		}
+		# Remove Squire Relations
+		if = {
+			limit = {
+				any_relation = {
+					type = agot_squire
+				}
+			}
+			every_relation = {
+				type = agot_squire
+				remove_relation_agot_knight = $KNIGHT$
+				add_character_flag = agot_knighthood_was_removed_as_a_squire_flag
+			}
+		}
+		add_prestige = major_prestige_loss
+		create_character_memory = {
+			type = agot_was_stripped_of_knighthood
+			participants = {
+				stripper = scope:actor
+			}
+		}
+		add_character_flag = cannot_be_knighted
+		add_opinion = {
+			target = $STRIPPER$
+			modifier = stripped_my_knighthood
+			opinion = -50
+		}
+	}
+}
+
 ################################
 ### TOURNAMENT PRIZE EFFECTS ###
 ################################
 
 agot_tournament_reward_knighthood_prize = {
-	if = {
-		limit = {
-			has_game_rule = kt_auto_on
-		}
-		du_knight_tree_se = { ACTOR = $KNIGHT_MAKER$ RECIPIENT = $KNIGHT_TO_BE$ }
-	}
-	if = {
-		limit = {
-			has_game_rule = kt_auto_off
-		}
-		if = {
-			limit = {
-				scope:actor = {
-					if = {
-						limit = {
-							OR = {
-								has_character_flag = kt_knighted
-								has_character_flag = kt_tracked
-							}
-						}
-					}
-				}
-			}
-			du_knight_tree_se = { ACTOR = $KNIGHT_MAKER$ RECIPIENT = $KNIGHT_TO_BE$ }
-		}
-	}
-	# du_knight_tree_se = { ACTOR = $HOST$ RECIPIENT = $WINNER$ } # Added me
+	du_knight_tree_se = { ACTOR = $HOST$ RECIPIENT = $WINNER$ }
 	$WINNER$ = {
 		agot_become_a_knight_effect = yes
 		create_character_memory = {
