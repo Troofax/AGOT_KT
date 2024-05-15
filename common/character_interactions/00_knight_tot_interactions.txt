@@ -37,6 +37,6 @@
 	
 	on_accept = {
 		scope:recipient = { agot_become_a_knight_effect = yes }
-		du_knight_tree_se = { ACTOR = scope:actor RECIPIENT = scope:recipient }
+		knight_tree_se = { ACTOR = scope:actor RECIPIENT = scope:recipient }
 	}
 }

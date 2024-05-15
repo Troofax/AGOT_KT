@@ -78,8 +78,8 @@ types DynastyTreeView
 							visible = "[ObjectsEqual(Character.MakeScope.Var('my_knight_tree_curr_head').Var('my_knight_tree_founder').Char, Character.Self)]"
 							ignoreinvisible = yes
 							direction = vertical
-							minimumsize = { 330 255 }
-							position = { 0 -250 }
+							minimumsize = { 100 100 } # Lowered to fit inline
+							position = { 44 -10 }
 
 							background = {
 								using = Background_Area_With_Header_Dark
@@ -106,45 +106,45 @@ types DynastyTreeView
 								}
 							}
 
-							text_single = {
-								parentanchor = hcenter
-								autoresize = yes
-								text = "DYNASTY_VIEW_INFO_TITLE"
-							}
+							# text_single = {
+								# parentanchor = hcenter
+								# autoresize = yes
+								# text = "DYNASTY_VIEW_INFO_TITLE"
+							# }
 
-							icon = {
-								parentanchor = hcenter
-								texture = "gfx/interface/component_tiles/tile_divider_01.dds"
-							}
+							# icon = {
+								# parentanchor = hcenter
+								# texture = "gfx/interface/component_tiles/tile_divider_01.dds"
+							# }
 
 							widget = {
-								size = { 165 175 }
-								parentanchor = hcenter
+								size = { 120 120 } # Resized COA for Bastards
+								parentanchor = vcenter|hcenter
 
-								coa_dynasty_huge = {
-									parentanchor = bottom|hcenter
-									datacontext = "[Dynasty]"
+								coa_dynasty_big = {
+									parentanchor = hcenter
+									datacontext = "[Character.GetDynasty]"
 								}
 							}
 
-							text_single = {
-								name = "dynasty_prestige"
-								parentanchor = hcenter
-								autoresize = yes
-								text = "DYNASTY_VIEW_PRESTIGE"
-							}
+							# text_single = {
+								# name = "dynasty_prestige"
+								# parentanchor = hcenter
+								# autoresize = yes
+								# text = "DYNASTY_VIEW_PRESTIGE"
+							# }
 
-							text_single = {
-								name = "house_motto"
-								parentanchor = hcenter
-								autoresize = yes
-								text = "HOUSE_VIEW_MOTTO"
-							}
+							# text_single = {
+								# name = "house_motto"
+								# parentanchor = hcenter
+								# autoresize = yes
+								# text = "HOUSE_VIEW_MOTTO"
+							# }
 
-							icon = {
-								parentanchor = hcenter
-								texture = "gfx/interface/component_tiles/tile_divider_01.dds"
-							}
+							# icon = {
+								# parentanchor = hcenter
+								# texture = "gfx/interface/component_tiles/tile_divider_01.dds"
+							# }
 						}
 
 						portrait_body = {
@@ -194,8 +194,9 @@ types DynastyTreeView
 						elide = right
 
 						align = center
-						#text = "Ser [Scope.GetCharacter.GetShortUINameNotMeNoTooltip]"
-						text = "Ser [Scope.GetCharacter.GetFirstNameNoTooltip] [Select_CString(Scope.GetCharacter.GetHouse.IsValid, Scope.GetCharacter.GetHouse.GetNameNoTooltip, '' )]"
+						# text = "Ser [Scope.GetCharacter.GetShortUINameNotMeNoTooltip]"
+						# text = "Ser [Scope.GetCharacter.GetFirstNameNoTooltip] [Select_CString(Scope.GetCharacter.GetHouse.IsValid, Scope.GetCharacter.GetHouse.GetNameNoTooltip, '' )]"
+						raw_text = "Ser [Scope.GetCharacter.GetFirstNameNoTooltip] [Select_CString(Scope.GetCharacter.GetHouse.IsValid, Scope.GetCharacter.GetHouse.GetNameNoTooltip, '' )]"
 						default_format = "#high"
 						fontsize = 20
 						fontsize_min = 10
@@ -439,7 +440,7 @@ types DynastyTreeView
 
 								icon = {
 									size = { 25 25 }
-									framesize = { 40 40 }
+									framesize = { 20 20 }
 									frame = 4
 									visible = "[Character.IsBastard]"
 									texture = "gfx/interface/icons/portraits/relation.dds"
@@ -475,8 +476,9 @@ types DynastyTreeView
 						elide = right
 
 						align = center
-						#text = "Ser [Scope.GetCharacter.GetShortUINameNotMeNoTooltip]"
-						text = "Ser [Scope.GetCharacter.GetFirstNameNoTooltip] [Select_CString(Scope.GetCharacter.GetHouse.IsValid, Scope.GetCharacter.GetHouse.GetNameNoTooltip, '' )]"
+						# text = "Ser [Scope.GetCharacter.GetShortUINameNotMeNoTooltip]"
+						# text = "Ser [Scope.GetCharacter.GetFirstNameNoTooltip] [Select_CString(Scope.GetCharacter.GetHouse.IsValid, Scope.GetCharacter.GetHouse.GetNameNoTooltip, '' )]"
+						raw_text = "Ser [Scope.GetCharacter.GetFirstNameNoTooltip] [Select_CString(Scope.GetCharacter.GetHouse.IsValid, Scope.GetCharacter.GetHouse.GetNameNoTooltip, '' )]"
 						default_format = "#high"
 						fontsize = 20
 						fontsize_min = 10

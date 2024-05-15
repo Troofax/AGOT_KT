@@ -1,5 +1,5 @@
-kt_auto_rule = {
-	default = kt_auto_on
-	# kt_auto_off = {}
-	kt_auto_on = {}
-}
+﻿# kt_auto_rule = {
+    # default = kt_auto_on
+    # # kt_auto_off = {}
+    # kt_auto_on = {}
+# }

@@ -10,17 +10,16 @@
 		# if = {
 			# limit = { game_start_date >= 8281.1.1 }
 			# character:Dayne_5 = {
-				# du_knight_tree_se = { ACTOR = character:Dayne_5 RECIPIENT = character:Lannister_7 }
+				# knight_tree_se = { ACTOR = character:Dayne_5 RECIPIENT = character:Lannister_7 }
 			# }
 			# character:Targaryen_3 = {
-				# du_knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Connington_4 }
-				# du_knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Mooton_3 }
-				# du_knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Clegane_3 }
-				# du_knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Lonmouth_2 }
-				
+				# knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Connington_4 }
+				# knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Mooton_3 }
+				# knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Clegane_3 }
+				# knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Lonmouth_2 }
 			# }
 			# character:Lannister_1 = {
-				# du_knight_tree_se = { ACTOR = character:Lannister_1 RECIPIENT = character:Targaryen_1 }
+				# knight_tree_se = { ACTOR = character:Lannister_1 RECIPIENT = character:Targaryen_1 }
 			# }
 		# }
 		# set_global_variable = {
@@ -33,38 +32,167 @@
 # Knight Tree Manual Selection Rules
 on_game_start = {
 	on_actions = {
-		kt_auto
-		kt_manual
+		kt_on_start
+		# kt_auto
+		# kt_manual
 	}
 }
 
-kt_auto = {
-	trigger = {
-		has_game_rule = kt_auto_on
-	}
+kt_on_start = {
 	effect = {
 		if = {
-			limit = { game_start_date >= 8281.1.1 }
-			character:Dayne_5 = {
-				du_knight_tree_se = { ACTOR = character:Dayne_5 RECIPIENT = character:Lannister_7 }
-			}
-			character:Targaryen_3 = {
-				du_knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Connington_4 }
-				du_knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Mooton_3 }
-				du_knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Clegane_3 }
-				du_knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Lonmouth_2 }
-				
-			}
-			character:Lannister_1 = {
-				du_knight_tree_se = { ACTOR = character:Lannister_1 RECIPIENT = character:Targaryen_1 }
+			limit = { game_start_date >= 8209.1.1 }
+			character:Pennytree_2 = {
+				knight_tree_se = { ACTOR = character:Pennytree_2 RECIPIENT = character:Tall_1 }
 			}
 		}
+		if = { # NPK
+			limit = { game_start_date >= 8253.1.1 }
+			character:Tall_1 = {
+				knight_tree_se = { ACTOR = character:Tall_1 RECIPIENT = character:Targaryen_122 }
+			}
+		}
+		if = {
+			limit = { game_start_date >= 8253.1.2 }
+			character:Targaryen_122 = {
+				knight_tree_se = { ACTOR = character:Targaryen_122 RECIPIENT = character:Selmy_3 }
+				knight_tree_se = { ACTOR = character:Targaryen_122 RECIPIENT = character:Lannister_127 }
+			}
+		}
+		if = {
+			limit = { game_start_date > 8259.1.1 }
+			character:Targaryen_127 = {
+				knight_tree_se = { ACTOR = character:Targaryen_127 RECIPIENT = character:Baratheon_1 }
+			}
+			character:Darry_58 = {
+				knight_tree_se = { ACTOR = character:Darry_58 RECIPIENT = character:Tully_9 }
+				knight_tree_se = { ACTOR = character:Darry_58 RECIPIENT = character:Vance_Atranta_1 }
+			}
+		}
+
+		if = {
+			limit = { game_start_date >= 8260.1.1 }
+			character:Reyne_45 = {
+				knight_tree_se = { ACTOR = character:Reyne_45 RECIPIENT = character:Lannister_2 }
+			}
+			character:Gargalen_1 = {
+				knight_tree_se = { ACTOR = character:Gargalen_1 RECIPIENT = character:Martell_4 }
+			}
+		}
+		if = {
+			limit = { game_start_date >= 8266.1.1 }
+			character:Lannister_1 = {
+				knight_tree_se = { ACTOR = character:Lannister_1 RECIPIENT = character:Lannister_4 }
+			}
+		}
+
+		if = {
+			limit = { game_start_date >= 8280.1.1 }
+			character:Darry_3 = {
+				knight_tree_se = { ACTOR = character:Darry_3 RECIPIENT = character:Targaryen_3 }
+			}
+		}
+		if = { # RR and CS
+			limit = { game_start_date >= 8281.1.1 }
+			character:Dayne_5 = {
+				knight_tree_se = { ACTOR = character:Dayne_5 RECIPIENT = character:Lannister_7 }
+			}
+			character:Targaryen_3 = {
+				knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Connington_4 }
+				knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Mooton_3 }
+				knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Clegane_3 }
+				knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Lonmouth_2 }
+			}
+			character:Lannister_1 = {
+				knight_tree_se = { ACTOR = character:Lannister_1 RECIPIENT = character:Targaryen_1 }
+			}
+		}
+		if = { # CS
+			limit = { game_start_date >= 8284.1.1 }
+			character:Redfort_1 = {
+				knight_tree_se = { ACTOR = character:Redfort_1 RECIPIENT = character:Shett_2 }
+			}
+		}
+		if = {
+			limit = { game_start_date >= 8286.1.1 }
+			character:Baratheon_3 = {
+				knight_tree_se = { ACTOR = character:Baratheon_3 RECIPIENT = character:Seaworth_1 }
+				knight_tree_se = { ACTOR = character:Baratheon_3 RECIPIENT = character:Estermont_7 }
+			}
+		}
+		if = {
+			limit = { game_start_date >= 8289.1.1 }
+			character:Dulver_3 = {
+				knight_tree_se = { ACTOR = character:Dulver_3 RECIPIENT = character:Dulver_4 }
+			}
+		}
+
+		if = { # WOTFK
+			limit = { game_start_date >= 8298.1.1 }
+			character:Baratheon_4 = {
+				knight_tree_se = { ACTOR = character:Baratheon_4 RECIPIENT = character:Tyrell_13 }
+			}
+			character:Martell_8 = {
+				knight_tree_se = { ACTOR = character:Martell_8 RECIPIENT = character:Allyrion_6 }
+			}
+			character:Yronwood_2 = {
+				knight_tree_se = { ACTOR = character:Yronwood_2 RECIPIENT = character:Martell_10 }
+			}
+			character:Baratheon_2 = {
+				knight_tree_se = { ACTOR = character:Baratheon_2 RECIPIENT = character:Bywater_5 }
+				knight_tree_se = { ACTOR = character:Baratheon_2 RECIPIENT = character:Massey_4 }
+				knight_tree_se = { ACTOR = character:Baratheon_2 RECIPIENT = character:Arryn_hh_4 }
+			}
+		}
+		if = { # ACOK
+			limit = { game_start_date > 8299.2.1 }
+			character:Dondarrion_2 = {
+				knight_tree_se = { ACTOR = character:Dondarrion_2 RECIPIENT = character:Baratheon_9 }
+			}
+		}
+		if = { # AFFC
+			limit = { game_start_date >= 8300.1.1 }
+			character:Royce_1 = {
+				knight_tree_se = { ACTOR = character:Royce_1 RECIPIENT = character:Hardyng_5 }
+			}
+			character:Corbray_3 = {
+				knight_tree_se = { ACTOR = character:Corbray_3 RECIPIENT = character:Redfort_5 }
+			}
+		}
+
 		set_global_variable = {
 			name = sc_trees_destroyed
 			value = 0
 		}
 	}
 }
+
+# kt_auto = {
+	# trigger = {
+		# has_game_rule = kt_auto_on
+	# }
+	# effect = {
+		# if = {
+			# limit = { game_start_date >= 8281.1.1 }
+			# character:Dayne_5 = {
+				# knight_tree_se = { ACTOR = character:Dayne_5 RECIPIENT = character:Lannister_7 }
+			# }
+			# character:Targaryen_3 = {
+				# knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Connington_4 }
+				# knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Mooton_3 }
+				# knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Clegane_3 }
+				# knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Lonmouth_2 }
+			# }
+			# character:Lannister_1 = {
+				# knight_tree_se = { ACTOR = character:Lannister_1 RECIPIENT = character:Targaryen_1 }
+			# }
+		# }
+		# set_global_variable = {
+			# name = sc_trees_destroyed
+			# value = 0
+		# }
+	# }
+# }
 
 # kt_manual = {
 	# trigger = {
@@ -74,16 +202,16 @@ kt_auto = {
 		# if = {
 			# limit = { game_start_date >= 8281.1.1 }
 			# character:Dayne_5 = {
-				# du_knight_tree_se = { ACTOR = character:Dayne_5 RECIPIENT = character:Lannister_7 }
+				# knight_tree_se = { ACTOR = character:Dayne_5 RECIPIENT = character:Lannister_7 }
 			# }
 			# character:Targaryen_3 = {
-				# du_knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Connington_4 }
-				# du_knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Mooton_3 }
-				# du_knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Clegane_3 }
-				# du_knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Lonmouth_2 }
+				# knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Connington_4 }
+				# knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Mooton_3 }
+				# knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Clegane_3 }
+				# knight_tree_se = { ACTOR = character:Targaryen_3 RECIPIENT = character:Lonmouth_2 }
 			# }
 			# character:Lannister_1 = {
-				# du_knight_tree_se = { ACTOR = character:Lannister_1 RECIPIENT = character:Targaryen_1 }
+				# knight_tree_se = { ACTOR = character:Lannister_1 RECIPIENT = character:Targaryen_1 }
 			# }
 		# }
 		# set_global_variable = {

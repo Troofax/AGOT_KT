@@ -56,12 +56,12 @@ open_knight_tree = {
 		opened_character
 	}
 
-	effect = {  # Applies variables to use for the tree
+	effect = { # Applies variables to use for the tree
 		if = {
 			limit = {
 				any_in_global_list = {
 					variable = global_teacher_trees
-					OR = {
+					OR = { # Check if this a founder or a student
 						var:my_knight_tree_founder = scope:opened_character
 						any_in_list = {
 							variable = prune
@@ -76,7 +76,7 @@ open_knight_tree = {
 			random_in_global_list = {
 				variable = global_teacher_trees
 				limit = {
-					OR = {
+					OR = { # Check if this a founder or a student
 						var:my_knight_tree_founder = scope:opened_character
 						any_in_list = {
 							variable = prune
@@ -88,7 +88,7 @@ open_knight_tree = {
 					}
 				}
 				root = {
-					set_variable = {
+					set_variable = { # Tag the character tree that is opened so you only open that one
 						name = opened_knight_tree
 						value = prev
 					}

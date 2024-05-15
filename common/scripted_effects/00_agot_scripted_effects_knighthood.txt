@@ -8,7 +8,8 @@
 			track = knight
 			value = 100
 		}
-	} else_if = {
+	}
+	else_if = {
 		limit = {
 			NOT = {
 				has_trait = squire
@@ -43,12 +44,25 @@
 			}
 		}
 	}
+	# Lowborns get Personal COA
+	if = {
+		limit = {
+			is_lowborn = yes
+		}
+		random_list = {
+			25 = {
+				agot_create_personal_coa = yes
+			}
+			75 = {}
+		}
+	}
 
 	#SOTM
 	if = {
 		limit = {
 			exists = dynasty
 			dynasty = dynasty:dynn_Dayne
+			NOT = { this = dynasty.dynast }
 		}
 		dynasty.dynast = {
 			trigger_event = {
@@ -60,7 +74,7 @@
 }
 
 agot_add_become_a_knight_prestige_effect = {
-	du_knight_tree_se = { ACTOR = $KNIGHT_MAKER$ RECIPIENT = $KNIGHT_TO_BE$ }
+	knight_tree_se = { ACTOR = $KNIGHT_MAKER$ RECIPIENT = $KNIGHT_TO_BE$ }
 	add_prestige = {
 		#value = 25 # AGOT REVIEW: See how the higher values feel
 		value = 50
@@ -555,7 +569,8 @@ agot_strip_knighthood_as_punishment_effect = {
 				has_trait = knight
 			}
 			remove_trait = knight
-		} else_if = {
+		}
+		else_if = {
 			limit = {
 				has_trait_xp = {
 					trait = squire
@@ -608,7 +623,7 @@ agot_strip_knighthood_as_punishment_effect = {
 ################################
 
 agot_tournament_reward_knighthood_prize = {
-	du_knight_tree_se = { ACTOR = $HOST$ RECIPIENT = $WINNER$ }
+	knight_tree_se = { ACTOR = $HOST$ RECIPIENT = $WINNER$ }
 	$WINNER$ = {
 		agot_become_a_knight_effect = yes
 		create_character_memory = {
