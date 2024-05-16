@@ -5,5 +5,5 @@ tags={
 }
 name="AGOT Knight Tree"
 picture="thumbnail.png"
-supported_version="1.10.2"
+supported_version="1.12.5"
 remote_file_id="3078200751"
